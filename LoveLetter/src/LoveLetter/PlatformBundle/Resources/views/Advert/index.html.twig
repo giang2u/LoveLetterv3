@@ -1,0 +1,15 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bienvenue sur LoveLetter !</title>
+  </head>
+  <body>
+    <h1>LOVE LETTER !</h1>
+      <form action=" {{ path('love_letter_platform_new_users') }} ">
+        <input type="button" value="JOUER">
+        <input type="submit" value="INSCRIPTION" onClick={{ path('love_letter_platform_new_users') }}>
+      </form>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+love_letter_platform_homepage:
+    path:     /index
+    defaults: { _controller: LoveLetterPlatformBundle:Advert:index }
+
+love_letter_platform_new_users:
+    path:     /newUsers
+    defaults: { _controller: LoveLetterPlatformBundle:Advert:newUsers }
