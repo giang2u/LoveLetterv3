@@ -5,3 +5,7 @@ love_letter_platform_homepage:
 love_letter_platform_new_users:
     path:     /newUsers
     defaults: { _controller: LoveLetterPlatformBundle:Advert:newUsers }
+
+love_letter_platform_cartes:
+    path:     /cartes
+    defaults: { _controller: AppBundle:Advert:cartes }

@@ -1,0 +1,30 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/cartes.html.twig #}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bienvenue sur LoveLetter !</title>
+  </head>
+  <body>
+    <h1>Liste des carte!</h1>
+       <?php
+
+       
+          var_dump ("blabla");
+
+          include(../../../../../src/AppBundle/Entity/Carte.php);
+
+          $roi = new Carte("King");
+          $Princess = new Carte("Princess");
+          $Countess = new Carte("Countess");
+          $Prince = new Carte("Prince");
+          $Handmaid = new Carte("Handmaid");
+          $Baron = new Carte("Baron");
+          $Priest = new Carte("Priest");
+          $Guard = new Carte("Guard");
+
+        
+
+        ?>
+  </body>
+</html>
