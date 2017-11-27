@@ -23,7 +23,7 @@ class Carte
     {
 		$nom = $n;
 		switch ($nom) {
-			case "Princess";:
+			case "Princess":
 				$url = "../../../img/Princess.png";
 				break;
 			case "Countess":
@@ -53,7 +53,7 @@ class Carte
 	public function setNom($n) {
 		$nom = $n;
 		switch ($nom) {
-			case "Princess";:
+			case "Princess":
 				$url = "../../../img/Princess.png";
 				break;
 			case "Countess":

@@ -14,13 +14,15 @@ class Cimetiere
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $nom, $type;
+    protected $arrayCarte;
 
-    public function __construct($n, $t )
+    public function __construct()
     {
-		$nom = $n;
-		$type = $p;
     }
+	
+	public getCarte() {
+		return $arrayCarte;
+	}
 	
 	
 }

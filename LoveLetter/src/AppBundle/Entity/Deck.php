@@ -18,38 +18,62 @@ class Deck
 
     public function __construct( )
     {
-		for ($i =0; $i < 16; $i++) {
-			$r = rand(1,8);
+		
+			array_push($arrayCarte, new Carte("Guard");
 			
-			switch ($r) {
-				case 1:
-					array_push($arrayCarte, new Carte("Princess");
-					break;
-				case 2:
-					array_push($arrayCarte, new Carte("Countess");
-					break;
-				case 3:
-					array_push($arrayCarte, new Carte("King");
-					break;
-				case 4:
-					array_push($arrayCarte, new Carte("Prince");
-					break;
-				case 5":
-					array_push($arrayCarte, new Carte("Handmaid");
-					break;
-				case 6:
-					array_push($arrayCarte, new Carte("Baron");
-					break;
-				case 7:
-					array_push($arrayCarte, new Carte("Priest");
-					break;
-				case 8:
-					array_push($arrayCarte, new Carte("Guard");
-					break;
+			array_push($arrayCarte, new Carte("Guard");
+			
+			array_push($arrayCarte, new Carte("Guard");
+			
+			array_push($arrayCarte, new Carte("Guard");
+			
+			array_push($arrayCarte, new Carte("Princess");
+				
+			array_push($arrayCarte, new Carte("Countess");
+	
+			array_push($arrayCarte, new Carte("King");
+	
+			array_push($arrayCarte, new Carte("Prince");
+			
+			array_push($arrayCarte, new Carte("Prince");
+
+			array_push($arrayCarte, new Carte("Handmaid");
+			
+			array_push($arrayCarte, new Carte("Handmaid");
+
+			array_push($arrayCarte, new Carte("Baron");
+			
+			array_push($arrayCarte, new Carte("Baron");
+		
+			array_push($arrayCarte, new Carte("Priest");
+			
+			array_push($arrayCarte, new Carte("Priest");
+				
+			array_push($arrayCarte, new Carte("Guard");
 			}
 		}
 			
     }
+	
+	public function melanger() {
+		if (!empty($arrayCarte) {
+			for ($i = 0; $i < 25; $i++) {
+				$r = rand(0,15);
+				
+				$rr = rand(0,15);
+				while($rr = $r) {
+					$rr = rand(0,15);
+				}
+				
+				
+				$carte = $arrayCarte[$r];
+				
+				$arrayCarte[$r] = $arrayCarte{$rr];
+				
+				$arrayCarte[$rr] = $carte;
+				
+			}
+	}
 	
 	
 }
