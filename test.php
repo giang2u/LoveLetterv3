@@ -8,11 +8,12 @@
   <div id="conteneur">    
     <h1 id="header"><a href="#" title="Colored Design - Accueil"><span>Colored Design</span></a></h1>
 
-		<img src="LoveLetter/img/King.png" border="0" />
+		<img src="LoveLetter/web/img/King.png" border="0" />
 
 <?php 
 
 include 'LoveLetter/src/AppBundle/Entity/Carte.php';
+include 'LoveLetter/src/AppBundle/Entity/Deck.php';
 
 $c = new Carte('King');
 
@@ -29,6 +30,17 @@ echo $rr;
 echo $c->getUrl();
 
 echo '<img src="'.$c->getUrl().'" border="0" /></div> ';
+
+$d = new Deck();
+
+$l = $d->getArrayCarte();
+
+	foreach($l as $o) {
+		echo $o->getNom();
+	}
+
+
+
 
 ?>
 

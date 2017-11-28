@@ -30,7 +30,7 @@ class Carte
 				$this->url = "../../../img/Countess.png";
 				break;
 			case "King":
-				$this->url = "LoveLetter/img/King.png";
+				$this->url = "LoveLetter/web/img/King.png";
 				break;
 			case "Prince":
 				$this->url = "../../../img/Prince.png";

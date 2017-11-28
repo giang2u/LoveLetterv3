@@ -1,7 +1,6 @@
 <?php
 // src/AppBundle/Entity/User.php
 
-namespace AppBundle\Entity;
 
 /**
  * @ORM\Entity
@@ -19,44 +18,50 @@ class Deck
     public function __construct( )
     {
 		
-			array_push($arrayCarte, new Carte("Guard");
+			array_push($this->arrayCarte, new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Guard")
+				, new Carte("Princess"), new Carte("Countess"), new Carte("King"), new Carte("Prince"), new Carte("Prince")
+				, new Carte("Handmaid"), new Carte("Handmaid"), new Carte("Baron"), new Carte("Baron"), new Carte("Priest"), new Carte("Priest"));
 			
-			array_push($arrayCarte, new Carte("Guard");
+			/*array_push($this->arrayCarte, new Carte("Guard");
 			
-			array_push($arrayCarte, new Carte("Guard");
+			array_push($this->arrayCarte, new Carte("Guard");
 			
-			array_push($arrayCarte, new Carte("Guard");
+			array_push($this->arrayCarte, new Carte("Guard");
 			
-			array_push($arrayCarte, new Carte("Princess");
+			array_push($this->arrayCarte, new Carte("Princess");
 				
-			array_push($arrayCarte, new Carte("Countess");
+			array_push($this->arrayCarte, new Carte("Countess");
 	
-			array_push($arrayCarte, new Carte("King");
+			array_push($this->arrayCarte, new Carte("King");
 	
-			array_push($arrayCarte, new Carte("Prince");
+			array_push($this->arrayCarte, new Carte("Prince");
 			
-			array_push($arrayCarte, new Carte("Prince");
+			array_push($this->arrayCarte, new Carte("Prince");
 
-			array_push($arrayCarte, new Carte("Handmaid");
+			array_push($this->arrayCarte, new Carte("Handmaid");
 			
-			array_push($arrayCarte, new Carte("Handmaid");
+			array_push($this->arrayCarte, new Carte("Handmaid");
 
-			array_push($arrayCarte, new Carte("Baron");
+			array_push($this->arrayCarte, new Carte("Baron");
 			
-			array_push($arrayCarte, new Carte("Baron");
+			array_push($this->arrayCarte, new Carte("Baron");
 		
-			array_push($arrayCarte, new Carte("Priest");
+			array_push($this->arrayCarte, new Carte("Priest");
 			
-			array_push($arrayCarte, new Carte("Priest");
+			array_push($this->arrayCarte, new Carte("Priest");
 				
-			array_push($arrayCarte, new Carte("Guard");
+			array_push($this->arrayCarte, new Carte("Guard");*/
 			}
 		}
 			
     }
 	
+	public getArrayDeck() {
+		return $this->arrayCarte;
+	}
+	
 	public function melanger() {
-		if (!empty($arrayCarte) {
+		if (!empty($this->arrayCarte) {
 			for ($i = 0; $i < 25; $i++) {
 				$r = rand(0,15);
 				
@@ -65,12 +70,11 @@ class Deck
 					$rr = rand(0,15);
 				}
 				
+				$carte = $this->arrayCarte[$r];
 				
-				$carte = $arrayCarte[$r];
+				$this->arrayCarte[$r] = $this->arrayCarte{$rr];
 				
-				$arrayCarte[$r] = $arrayCarte{$rr];
-				
-				$arrayCarte[$rr] = $carte;
+				$this->arrayCarte[$rr] = $carte;
 				
 			}
 	}
