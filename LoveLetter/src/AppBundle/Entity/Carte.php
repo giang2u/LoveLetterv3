@@ -1,7 +1,7 @@
 <?php
 // src/AppBundle/Entity/Carte.php
 
-namespace AppBundle\Entity;
+//namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,73 +19,81 @@ class Carte
      */
     protected $nom, $url;
 
-    public function __construct($n)
+    function  __construct($n)
     {
-		$nom = $n;
-		switch ($nom) {
+		$this->nom = $n;
+		switch ($this->nom) {
 			case "Princess":
-				$url = "../../../img/Princess.png";
+				$this->url = "../../../img/Princess.png";
 				break;
 			case "Countess":
-				$url = "../../../img/Countess.png";
+				$this->url = "../../../img/Countess.png";
 				break;
 			case "King":
-				$url = "../../../img/King.png";
+				$this->url = "LoveLetter/img/King.png";
 				break;
 			case "Prince":
-				$url = "../../../img/Prince.png";
+				$this->url = "../../../img/Prince.png";
 				break;
 			case "Handmaid":
-				$url = "../../../img/Handmaid.png";
+				$this->url = "../../../img/Handmaid.png";
 				break;
 			case "Baron":
-				$url = "../../../img/Baron.png";
+				$this->url = "../../../img/Baron.png";
 				break;
 			case "Priest":
-				$url = "../../../img/Priest.png";
+				$this->url = "../../../img/Priest.png";
 				break;
 			case "Guard":
-				$url = "../../../img/Guard.png";
+				$this->url = "../../../img/Guard.png";
+				break;
+			default:
+				$this->nom = "Guard";
+				$this->url = "../../../img/Guard.png";
 				break;
 		}
     }
 	
 	public function setNom($n) {
-		$nom = $n;
-		switch ($nom) {
+		$this->nom = $n;
+		switch ($this->nom) {
 			case "Princess":
-				$url = "../../../img/Princess.png";
+				$this->url = "../../../img/Princess.png";
 				break;
 			case "Countess":
-				$url = "../../../img/Countess.png";
+				$this->url = "../../../img/Countess.png";
 				break;
 			case "King":
-				$url = "../../../img/King.png";
+				$this->url = "LoveLetter/img/King.png";
 				break;
 			case "Prince":
-				$url = "../../../img/Prince.png";
+				$this->url = "../../../img/Prince.png";
 				break;
 			case "Handmaid":
-				$url = "../../../img/Handmaid.png";
+				$this->url = "../../../img/Handmaid.png";
 				break;
 			case "Baron":
-				$url = "../../../img/Baron.png";
+				$this->url = "../../../img/Baron.png";
 				break;
 			case "Priest":
-				$url = "../../../img/Priest.png";
+				$this->url = "../../../img/Priest.png";
 				break;
 			case "Guard":
-				$url = "../../../img/Guard.png";
+				$this->url = "../../../img/Guard.png";
+				break;
+			default:
+				$this->nom = "Guard";
+				$this->url = "../../../img/Guard.png";
 				break;
 		}
 	}
 	
 	public function getNom() {
-		return $nom;
+		return $this->nom;
 	}
 	
 	public function getUrl() {
-		return $url;
+		return $this->url;
 	}
 	
 	
