@@ -7,19 +7,31 @@ namespace AppBundle\Controller;
 // N'oubliez pas ce use :
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use  AppBundle\Entity;
+use AppBundle\Entity;
+
+require 'Deck.php';
 
 class AdvertController extends Controller
-{/*
-  public function indexAction(){
-    $content = $this->get('templating')->render('base.html.twig');
-    
-    return new Response($content);
-	}*/
+{
+	protected $deck;
+	protected $listeCartes;
 
 	public function cartesAction(){
 
-        $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:cartes.html.twig');
+		$this->deck = new Deck();
+		$this->listeCartes = array(
+			'King' => $this->deck->getCarte('King')->getUrl(),
+			'Guard' => $this->deck->getCarte('Guard')->getUrl(),
+			'Countess' => $this->deck->getCarte('Countess')->getUrl(),
+			'Princess' => $this->deck->getCarte('Princess')->getUrl(),
+			'Prince' => $this->deck->getCarte('Prince')->getUrl(),
+			'Handmaid' => $this->deck->getCarte('Handmaid')->getUrl(),
+			'Baron' => $this->deck->getCarte('Baron')->getUrl(),
+			'Priest' => $this->deck->getCarte('Priest')->getUrl(),
+			);
+
+        $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:cartes.html.twig',
+        		$this->listeCartes);
     	return new Response($content);
 	}
 

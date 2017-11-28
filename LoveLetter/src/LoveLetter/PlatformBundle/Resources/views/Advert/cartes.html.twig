@@ -7,24 +7,13 @@
   </head>
   <body>
     <h1>Liste des carte!</h1>
-       <?php
-
-       
-          var_dump ("blabla");
-
-          include(../../../../../src/AppBundle/Entity/Carte.php);
-
-          $roi = new Carte("King");
-          $Princess = new Carte("Princess");
-          $Countess = new Carte("Countess");
-          $Prince = new Carte("Prince");
-          $Handmaid = new Carte("Handmaid");
-          $Baron = new Carte("Baron");
-          $Priest = new Carte("Priest");
-          $Guard = new Carte("Guard");
-
-        
-
-        ?>
+		<img src="{{ asset(Guard) }}" alt="Guard" />
+		<img src="{{ asset(Priest) }}" alt="Priest" />
+		<img src="{{ asset(Baron) }}" alt="Baron" />
+		<img src="{{ asset(Handmaid) }}" alt="Handmaid" />
+		<img src="{{ asset(Prince) }}" alt="Prince" />
+		<img src="{{ asset(King) }}" alt="king" />
+		<img src="{{ asset(Countess) }}" alt="Countess" />
+		<img src="{{ asset(Princess) }}" alt="Princess" />
   </body>
 </html>
