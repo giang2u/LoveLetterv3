@@ -33,10 +33,12 @@ echo '<img src="'.$c->getUrl().'" border="0" /></div> ';
 
 $d = new Deck();
 
-$l = $d->getArrayCarte();
+$d->melanger();
 
-	foreach($l as $o) {
-		echo $o->getNom();
+//$l = $d->getArrayCarte();
+
+	foreach($d->getArrayDeck() as $o) {
+		echo $o->getNom()." \n";
 	}
 
 
