@@ -1,7 +1,7 @@
 <?php
 // src/AppBundle/Entity/User.php
 
-namespace AppBundle\Entity;
+//namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,13 +18,19 @@ class Plateau
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $nom, $type;
+    protected $url, $carteJ1, $carteJ2;
 
-    public function __construct($n, $t )
+    public function __construct( )
     {
-		$nom = $n;
-		$type = $p;
+		$this->url = "img/plateau.jpg";
+		$this->carteJ1 = array();
+		$this->carteJ2 = array();
     }
+	
+	
+	public function getUrl() {
+		return $this->url;
+	}
 	
 	
 }

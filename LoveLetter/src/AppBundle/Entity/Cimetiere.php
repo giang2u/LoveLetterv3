@@ -18,10 +18,11 @@ class Cimetiere
 
     public function __construct()
     {
+		$this->arrayCarte = array();
     }
 	
 	public getCarte() {
-		return $arrayCarte;
+		return $this->arrayCarte;
 	}
 	
 	

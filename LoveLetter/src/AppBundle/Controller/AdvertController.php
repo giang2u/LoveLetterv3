@@ -9,11 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity;
 
+include '../Entity/Plateau.php';
 require 'Deck.php';
 
 class AdvertController extends Controller
 {
-	protected $deck;
+	protected $deck, $plateau;
 	protected $listeCartes;
 
 	public function cartesAction(){
@@ -34,5 +35,16 @@ class AdvertController extends Controller
         		$this->listeCartes);
     	return new Response($content);
 	}
+	
+	public function plateauAction(){
+
+		$this->plateau = new Plateau();
+
+        $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:cartes.html.twig',
+        		$this->plateau);
+    	return new Response($content);
+	}
+	
+	
 
 }

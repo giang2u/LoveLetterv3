@@ -17,11 +17,12 @@ class Carte
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $nom, $url;
+    protected $nom, $url, $retourne;
 
     function  __construct($n)
     {
 		$this->nom = $n;
+		$this->retournee = true;
 		switch ($this->nom) {
 			case "Princess":
 				$this->url = "../../../img/Princess.png";
@@ -94,6 +95,14 @@ class Carte
 	
 	public function getUrl() {
 		return $this->url;
+	}
+	
+	public function getVerso() {
+		return $this->retourne;
+	}
+	
+	public function setVerso($b) {
+		$this->retourne = $b;
 	}
 	
 	
