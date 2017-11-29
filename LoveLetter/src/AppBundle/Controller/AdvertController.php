@@ -39,9 +39,10 @@ class AdvertController extends Controller
 	public function plateauAction(){
 
 		$this->plateau = new Plateau();
+		
 
         $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:cartes.html.twig',
-        		$this->plateau);
+        		array('plateau' => $this->plateau->getUrl()));
     	return new Response($content);
 	}
 	
