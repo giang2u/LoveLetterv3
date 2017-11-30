@@ -9,19 +9,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity;
 
-require 'Plateau.php';
+//include '../Entity/Plateau.php';
 require 'Deck.php';
 
 class AdvertController extends Controller
 {
-	protected $deck;
-	protected $plateau;
+	protected $deck, $plateau;
 	protected $listeCartes;
 
 	public function cartesAction(){
 
 		$this->deck = new Deck();
-
 		$this->listeCartes = array(
 			'King' => $this->deck->getCarte('King')->getUrl(),
 			'Guard' => $this->deck->getCarte('Guard')->getUrl(),
@@ -38,14 +36,16 @@ class AdvertController extends Controller
     	return new Response($content);
 	}
 	
-	public function plateauAction(){
+	/*public function plateauAction(){
 
 		$this->plateau = new Plateau();
-		$this->deck = new Deck();
 		
-        $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:plateau.html.twig',
-        		array('plateau' => $this->plateau->getUrl(), 'verso' => $this->deck->getVerso()));
+
+        $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:cartes.html.twig',
+        		array('plateau' => $this->plateau->getUrl()));
     	return new Response($content);
-	}
+	}*/
 	
+	
+
 }
