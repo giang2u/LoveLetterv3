@@ -1,3 +1,17 @@
+drop table cimetiere_carte_manche;
+drop table appartient;
+drop table deck_carte_manche;
+drop table partie_manche;
+drop table cimetiere;
+drop table deck;
+drop table main;
+drop table manche;
+drop table partie;
+drop table joueur;
+drop table carte;
+
+
+
 create table Carte (
 carte_nom varchar(50) NOT NULL,
 carte_url varchar(100) NOT NULL,
@@ -18,7 +32,6 @@ FOREIGN KEY (partie_j1) references Joueur(joueur_id),
 FOREIGN KEY (partie_j2) references Joueur(joueur_id),
 PRIMARY KEY(partie_id)
 );
-
 
 
 create table Manche(

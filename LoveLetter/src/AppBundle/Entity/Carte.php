@@ -13,11 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Carte
 {
     /**
-     * @ORM\carte_nom
-     * @ORM\Column(name="carte_nom", type="string", length=100)
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Id
+     * @ORM\Column(name="carte_nom",type="String",length=100)
      */
-    protected $carte_nom;
+    protected $id;
 	
 	/**
      * @ORM\Column(name="carte_url", type="string", length=100)
