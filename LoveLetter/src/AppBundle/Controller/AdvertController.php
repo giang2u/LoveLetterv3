@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity;
 
-include '../Entity/Plateau.php';
+//include '../Entity/Plateau.php';
 require 'Deck.php';
 
 class AdvertController extends Controller
@@ -36,7 +36,7 @@ class AdvertController extends Controller
     	return new Response($content);
 	}
 	
-	public function plateauAction(){
+	/*public function plateauAction(){
 
 		$this->plateau = new Plateau();
 		
@@ -44,7 +44,7 @@ class AdvertController extends Controller
         $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:cartes.html.twig',
         		array('plateau' => $this->plateau->getUrl()));
     	return new Response($content);
-	}
+	}*/
 	
 	
 

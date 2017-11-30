@@ -8,16 +8,21 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="Carte")
  */
 class Carte
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
+     * @ORM\carte_nom
+     * @ORM\Column(name="carte_nom", type="string", length=100)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $nom, $url, $retourne;
+    protected $carte_nom;
+	
+	/**
+     * @ORM\Column(name="carte_url", type="string", length=100)
+     */
+	protected $carte_url;
 
     function  __construct($n)
     {
@@ -25,32 +30,32 @@ class Carte
 		$this->retournee = true;
 		switch ($this->nom) {
 			case "Princess":
-				$this->url = "../../../img/Princess.png";
+				$this->url = "img/Princess.png";
 				break;
 			case "Countess":
-				$this->url = "../../../img/Countess.png";
+				$this->url = "img/Countess.png";
 				break;
 			case "King":
-				$this->url = "LoveLetter/web/img/King.png";
+				$this->url = "img/King.png";
 				break;
 			case "Prince":
-				$this->url = "../../../img/Prince.png";
+				$this->url = "img/Prince.png";
 				break;
 			case "Handmaid":
-				$this->url = "../../../img/Handmaid.png";
+				$this->url = "img/Handmaid.png";
 				break;
 			case "Baron":
-				$this->url = "../../../img/Baron.png";
+				$this->url = "img/Baron.png";
 				break;
 			case "Priest":
-				$this->url = "../../../img/Priest.png";
+				$this->url = "img/Priest.png";
 				break;
 			case "Guard":
-				$this->url = "../../../img/Guard.png";
+				$this->url = "img/Guard.png";
 				break;
 			default:
 				$this->nom = "Guard";
-				$this->url = "../../../img/Guard.png";
+				$this->url = "img/Guard.png";
 				break;
 		}
     }
@@ -59,32 +64,32 @@ class Carte
 		$this->nom = $n;
 		switch ($this->nom) {
 			case "Princess":
-				$this->url = "../../../img/Princess.png";
+				$this->url = "img/Princess.png";
 				break;
 			case "Countess":
-				$this->url = "../../../img/Countess.png";
+				$this->url = "img/Countess.png";
 				break;
 			case "King":
-				$this->url = "LoveLetter/img/King.png";
+				$this->url = "img/King.png";
 				break;
 			case "Prince":
-				$this->url = "../../../img/Prince.png";
+				$this->url = "img/Prince.png";
 				break;
 			case "Handmaid":
-				$this->url = "../../../img/Handmaid.png";
+				$this->url = "img/Handmaid.png";
 				break;
 			case "Baron":
-				$this->url = "../../../img/Baron.png";
+				$this->url = "img/Baron.png";
 				break;
 			case "Priest":
-				$this->url = "../../../img/Priest.png";
+				$this->url = "img/Priest.png";
 				break;
 			case "Guard":
-				$this->url = "../../../img/Guard.png";
+				$this->url = "img/Guard.png";
 				break;
 			default:
 				$this->nom = "Guard";
-				$this->url = "../../../img/Guard.png";
+				$this->url = "img/Guard.png";
 				break;
 		}
 	}
@@ -104,6 +109,8 @@ class Carte
 	public function setVerso($b) {
 		$this->retourne = $b;
 	}
+	
+	
 	
 	
 }

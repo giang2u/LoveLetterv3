@@ -8,16 +8,28 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="Joueur")
  */
 class Joueur
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="joueur_id", type="string", length=100)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id, $nom, $prenom;
+    protected $id;
+	
+	
+	/**
+     * @ORM\Column(name="joueur_nom", type="string", length=100)
+     */
+	protected $nom;
+	
+	
+	/**
+     * @ORM\Column(name="joueur_prenom", type="string", length=100)
+     */
+	protected $prenom;
 
     public function __construct($i, $n, $p )
     {
