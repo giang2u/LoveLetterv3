@@ -6,31 +6,36 @@
     <title>Bienvenue sur LoveLetter !</title>
   </head>
   <body>
-    <h1>Plateau de jeu</h1>
-		<div id="joueur1"></div>
-		<img src="{{ asset(plateau) }}" height = 500  width = 900 alt="plateau" align="center" />
-		<img src="{{ asset(verso) }}" height = 200  width = 150 alt="verso" align="right" onclick="my()"/>
-		<div id = "joueur2"> </div>
+    <h1 align="middle" >Plateau de jeu</h1>
+		
+		<div id="joueur1" align="middle">
+			PLAYER 1
+		</div>
+
+		<div align="center">
+			<img src="{{ asset(plateau) }}" height = 500  width = 900 alt="plateau" align="center" />
+			<img src="{{ asset(verso) }}" height = 200  width = 150 alt="verso" ; float:right ; onclick="tirerCarte()"/>
+		</div>
+
+		<div id = "joueur2" align="middle"> 
+			PLAYER 2
+		</div>
 		
 		
 		{% block javascripts %}
 		
 		<script src="/LoveLetterv3/LoveLetter/web/jquery-3_2_1.js"></script>
 		<script>
-				function my(){
-				
-				document.getElementById('joueur1').innerHTML = '<img src="/LoveLetterv3/LoveLetter/web/img/princess.png" width="100" height="94" />';
-				
-				document.getElementById('joueur1').innerHTML += '<img src="/LoveLetterv3/LoveLetter/web/img/princess.png" width="100" height="94" />';
+				function tirerCarte(){
+				document.getElementById('joueur1').innerHTML = '<div> PLAYER1 </div>' ;
+				document.getElementById('joueur1').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200" />';
+				document.getElementById('joueur1').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200"/>';
 
 
-				alert(div.innerHTML);
-		
-				document.getElementById('joueur1').innerHMTL = '/LoveLetterv3/LoveLetter/web/img/princess.png';
-				
-			//document.getElementByName("joueur1")[0].write('<img src="/LoveLetterv3/LoveLetter/web/img/princess.png" width="100" height="94" />');
+				document.getElementById('joueur2').innerHTML = '<img src="{{ asset(verso) }}" width="150" height="200" />';
+				document.getElementById('joueur2').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200"/>';
+				document.getElementById('joueur2').innerHTML += '<div> PLAYER2 </div>' ;
 
-			//$('<img src="/LoveLetterv3/LoveLetter/web/img/princess.png" width="50" height="50" />').appendTo($('joueur1')); 
 			};
 		
 		</script>

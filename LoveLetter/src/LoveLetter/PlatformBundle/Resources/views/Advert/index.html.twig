@@ -5,17 +5,22 @@
   <head>
     <title>Bienvenue sur LoveLetter !</title>
   </head>
-  <body>
-    <h1>LOVE LETTER !</h1>
-      <form action=" {{ path('love_letter_platform_new_users') }} ">
-        <input type="submit" value="INSCRIPTION" onClick={{ path('love_letter_platform_new_users') }}>
-      </form>
-      <form action=" {{ path('love_letter_platform_cartes') }} ">
-        <input type="submit" value="CARTES" onClick={{ path('love_letter_platform_cartes') }}>
-      </form>
-      <form action=" {{ path('love_letter_platform_plateau') }} ">
-        <input type="submit" value="JOUER" onClick={{ path('love_letter_platform_plateau') }}>
-      </form>
+  <body background = "/LoveLetterv3/LoveLetter/web/img/loveletter.gif">
+    <h1 align="center"style="color:pink;"" >LOVE LETTER !</h1>
+
+      <div align="center" >
+        <form action=" {{ path('love_letter_platform_new_users') }} ">
+          <input type="submit" value="INSCRIPTION" align="left" onClick={{ path('love_letter_platform_new_users') }}>
+        </form>
+        </br>
+        <form action=" {{ path('love_letter_platform_cartes') }} ">
+          <input type="image" value="CARTES" align="center" src = "/LoveLetterv3/LoveLetter/web/img/carte.jpg" width="268" height="87"  onClick={{ path('love_letter_platform_cartes') }}>
+        </form>
+        </br>
+        <form action=" {{ path('love_letter_platform_plateau') }} ">
+          <input type="image" value="JOUER" align="center" src = "/LoveLetterv3/LoveLetter/web/img/start.png" onClick={{ path('love_letter_platform_plateau') }}>
+        </form>
+      </div>
 
   </body>
 </html>
