@@ -9,3 +9,7 @@ love_letter_platform_new_users:
 love_letter_platform_cartes:
     path:     /cartes
     defaults: { _controller: AppBundle:Advert:cartes }
+
+love_letter_platform_plateau:
+    path:     /plateau
+    defaults: { _controller: AppBundle:Advert:plateau }

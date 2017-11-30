@@ -8,11 +8,14 @@
   <body>
     <h1>LOVE LETTER !</h1>
       <form action=" {{ path('love_letter_platform_new_users') }} ">
-        <input type="button" value="JOUER">
         <input type="submit" value="INSCRIPTION" onClick={{ path('love_letter_platform_new_users') }}>
       </form>
       <form action=" {{ path('love_letter_platform_cartes') }} ">
         <input type="submit" value="CARTES" onClick={{ path('love_letter_platform_cartes') }}>
       </form>
+      <form action=" {{ path('love_letter_platform_plateau') }} ">
+        <input type="submit" value="JOUER" onClick={{ path('love_letter_platform_plateau') }}>
+      </form>
+
   </body>
 </html>

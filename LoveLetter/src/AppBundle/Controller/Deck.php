@@ -5,10 +5,12 @@ namespace AppBundle\Controller;
 class Deck
 {
     protected $arrayCarte;
+    protected $verso;
 
     public function __construct( )
     {
 		
+		$this->verso = "img/verso.jpg";
 			$this->arrayCarte = array();
 			array_push($this->arrayCarte, new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Guard")
 				, new Carte("Princess"), new Carte("Countess"), new Carte("King"), new Carte("Prince"), new Carte("Prince")
@@ -19,6 +21,10 @@ class Deck
 	
 	public function getArrayDeck() {
 		return $this->arrayCarte;
+	}
+
+	public function getVerso(){
+		return $this->verso;
 	}
 	
 	public function getCarte( $n ){
