@@ -48,7 +48,11 @@ class AdvertController extends Controller
 		
 		
         $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:plateau.html.twig',
-        		array('plateau' => $this->plateau->getUrl(), 'verso' => $this->deck->getVerso(), 'deck' => $this->deck));
+        		array('plateau' => $this->plateau->getUrl(),
+        				 'verso' => $this->deck->getVerso(),
+        				 'first' => $this->deck->getCarteDuDeck(0)->getUrl(),
+        				 'second' => $this->deck->getCarteDuDeck(1)->getUrl(),
+        				 'trois' => $this->deck->getCarteDuDeck(2)->getUrl()));
     	return new Response($content);
 	}
 	

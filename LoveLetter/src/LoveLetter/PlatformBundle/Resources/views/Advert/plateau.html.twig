@@ -12,12 +12,14 @@
 			PLAYER 1
 			<br>
 		</div>
+		<div style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px">
 
-		<div align="center">
-			<img src="{{ asset(plateau) }}" height = 500  width = 900 alt="plateau" align="center" />
-			<img src="{{ asset(verso) }}" height = 200  width = 150 alt="verso" ; float:right ; onclick="tirerCarte()"/>
+			<img src="{{ asset(first) }}" align="center" height = 200  width = 150 alt="first" style="margin-top: 200px ; margin-bottom: 200px;"/>
+			<img src="{{ asset(second) }}" align="center" height = 200  width = 150 alt="second" style="margin-top: 200px; margin-bottom: 200px;"/>
+			<img src="{{ asset(trois) }}" align="center" height = 200  width = 150 alt="trois" style="margin-top: 200px; margin-bottom: 200px;"/>
+
+			<img src="{{ asset(verso) }}" align="center" height = 200  width = 150 alt="verso" style="margin-top: 200px; margin-bottom: 200px; float:right;" onclick="tirerCarte()"/>
 		</div>
-
 		<div id = "joueur2" align="middle"> 
 			PLAYER 2
 			<br>

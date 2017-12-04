@@ -18,6 +18,10 @@ class Deck
 			
 			
     }
+
+    public function getCarteDuDeck($n){
+    	return $this->arrayCarte[$n];
+    }
 	
 	public function getArrayDeck() {
 		return $this->arrayCarte;
