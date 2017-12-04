@@ -15,7 +15,8 @@
 
 		<div align="center">
 			<img src="{{ asset(plateau) }}" height = 500  width = 900 alt="plateau" align="center" />
-			<img src="{{ asset(verso) }}" height = 200  width = 150 alt="verso" ; float:right ; onclick="tirerCarte()"/>
+			<img src= "{{ asset(verso) }}" height = 200  width = 150 alt="verso" ; float:right ; onclick="tirerCarte()"/>
+			<input type="button" value="Fin du tour" float:right ; onclick="findutour()" />
 		</div>
 
 		<div id = "joueur2" align="middle"> 
@@ -24,21 +25,56 @@
 		</div>
 		
 		
+		{% set pioche = 3 %}
+		
+		
 		{% block javascripts %}
+		
 		
 		<script src="/LoveLetterv3/LoveLetter/web/jquery-3_2_1.js"></script>
 		<script>
-		
+						
+				i = 1;
+				pioche = 3;
+				piocher = false;
+				
 				
 		
 				function tirerCarte(){
-				document.getElementById('joueur1').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200" />';
-
-
-				document.getElementById('joueur2').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200" />';
-
+				
+				
+				var n = [];
+				 {% for item1 in deck %}
+					n.push( "{{ item1 }}" );
+				{% endfor %}
+			
+				
+				
+				
+				//var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
+				
+				//alert( "{{ asset(deck[pioche]) }}" + "\n" + n[pioche] );
+				
+				//alert ( po );
+				
+				if (i%2 == 0 && !piocher) {
+					document.getElementById('joueur2').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';
+				} 
+				if (i%2 == 1 && !piocher) {
+					document.getElementById('joueur1').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';
+				
+				}
+				piocher = true;
+				pioche++;
+				};
+			
+			
+			function findutour(){
+				i++;
+				piocher = false;
 			};
-		
+			
+			
 		</script>
 		
 		{% endblock %}

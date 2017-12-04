@@ -5,12 +5,13 @@ namespace AppBundle\Controller;
 class Deck
 {
     protected $arrayCarte;
-    protected $verso;
+    protected $verso, $verso_test;
 
     public function __construct( )
     {
 		
 		$this->verso = "img/verso.jpg";
+		$this->verso_test = "verso";
 			$this->arrayCarte = array();
 			array_push($this->arrayCarte, new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Guard")
 				, new Carte("Princess"), new Carte("Countess"), new Carte("King"), new Carte("Prince"), new Carte("Prince")
@@ -25,6 +26,10 @@ class Deck
 
 	public function getVerso(){
 		return $this->verso;
+	}
+	
+	public function getVerso_test() {
+		return $this->verso_test;
 	}
 	
 	public function getCarte( $n ){
