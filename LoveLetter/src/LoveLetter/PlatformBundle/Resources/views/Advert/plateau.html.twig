@@ -10,6 +10,7 @@
 		
 		<div id="joueur1" align="middle">
 			PLAYER 1
+			<br>
 		</div>
 
 		<div align="center">
@@ -19,6 +20,7 @@
 
 		<div id = "joueur2" align="middle"> 
 			PLAYER 2
+			<br>
 		</div>
 		
 		
@@ -26,15 +28,14 @@
 		
 		<script src="/LoveLetterv3/LoveLetter/web/jquery-3_2_1.js"></script>
 		<script>
+		
+				
+		
 				function tirerCarte(){
-				document.getElementById('joueur1').innerHTML = '<div> PLAYER1 </div>' ;
 				document.getElementById('joueur1').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200" />';
-				document.getElementById('joueur1').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200"/>';
 
 
-				document.getElementById('joueur2').innerHTML = '<img src="{{ asset(verso) }}" width="150" height="200" />';
-				document.getElementById('joueur2').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200"/>';
-				document.getElementById('joueur2').innerHTML += '<div> PLAYER2 </div>' ;
+				document.getElementById('joueur2').innerHTML += '<img src="{{ asset(verso) }}" width="150" height="200" />';
 
 			};
 		

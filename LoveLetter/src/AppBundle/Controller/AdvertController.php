@@ -41,10 +41,14 @@ class AdvertController extends Controller
 	public function plateauAction(){
 
 		$this->plateau = new Plateau();
+		
 		$this->deck = new Deck();
 		
+		$this->deck->melanger();
+		
+		
         $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:plateau.html.twig',
-        		array('plateau' => $this->plateau->getUrl(), 'verso' => $this->deck->getVerso()));
+        		array('plateau' => $this->plateau->getUrl(), 'verso' => $this->deck->getVerso(), 'deck' => $this->deck));
     	return new Response($content);
 	}
 	
