@@ -6,12 +6,6 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
-
-use AppBundle\Entity\Carte;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-
 /**
  * @ORM\Entity
  */
@@ -74,29 +68,6 @@ class Carte
 		}
     }
 	
-	public function createCarte($n, $url) {
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		$carte = new Carte("Guard");
-		$carte->setCarteNom($n);
-		$carte->setCarteUrl($url);
-		
-		$em->persist($carte);
-		
-		$em->flush();
-		
-	}
-	
-	public function setCarte($n,$url) {
-		$em = $this->getDoctrine()->getManager();
-		
-		$carte = $em->getRepository('AppBundle:Carte')->find(1);
-		$carte->setCarteNom("Guard");
-		
-		$em->flush();
-	}
-	
 	public function setNom($n) {
 		$this->nom = $n;
 		switch ($this->nom) {
@@ -150,62 +121,4 @@ class Carte
 	
 	
 	
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set carteUrl
-     *
-     * @param string $carteUrl
-     *
-     * @return Carte
-     */
-    public function setCarteUrl($carteUrl)
-    {
-        $this->carte_url = $carteUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get carteUrl
-     *
-     * @return string
-     */
-    public function getCarteUrl()
-    {
-        return $this->carte_url;
-    }
-
-    /**
-     * Set carteNom
-     *
-     * @param string $carteNom
-     *
-     * @return Carte
-     */
-    public function setCarteNom($carteNom)
-    {
-        $this->carte_nom = $carteNom;
-
-        return $this;
-    }
-
-    /**
-     * Get carteNom
-     *
-     * @return string
-     */
-    public function getCarteNom()
-    {
-        return $this->carte_nom;
-    }
 }

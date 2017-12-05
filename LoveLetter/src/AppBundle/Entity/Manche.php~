@@ -67,45 +67,4 @@ class Manche
     {
         return $this->partie;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cartes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add carte
-     *
-     * @param \AppBundle\Entity\Carte $carte
-     *
-     * @return Manche
-     */
-    public function addCarte(\AppBundle\Entity\Carte $carte)
-    {
-        $this->cartes[] = $carte;
-
-        return $this;
-    }
-
-    /**
-     * Remove carte
-     *
-     * @param \AppBundle\Entity\Carte $carte
-     */
-    public function removeCarte(\AppBundle\Entity\Carte $carte)
-    {
-        $this->cartes->removeElement($carte);
-    }
-
-    /**
-     * Get cartes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCartes()
-    {
-        return $this->cartes;
-    }
 }

@@ -32,9 +32,6 @@ class Partie
 	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Joueur", cascade={"persist"})
 	 */
 	private $joueurs;
-	
-
-	
 
 
     /**
@@ -69,47 +66,5 @@ class Partie
     public function getDate()
     {
         return $this->date;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-		$this->date = new \DateTime();
-        $this->joueurs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add joueur
-     *
-     * @param \AppBundle\Entity\Joueur $joueur
-     *
-     * @return Partie
-     */
-    public function addJoueur(\AppBundle\Entity\Joueur $joueur)
-    {
-        $this->joueurs[] = $joueur;
-
-        return $this;
-    }
-
-    /**
-     * Remove joueur
-     *
-     * @param \AppBundle\Entity\Joueur $joueur
-     */
-    public function removeJoueur(\AppBundle\Entity\Joueur $joueur)
-    {
-        $this->joueurs->removeElement($joueur);
-    }
-
-    /**
-     * Get joueurs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getJoueurs()
-    {
-        return $this->joueurs;
     }
 }

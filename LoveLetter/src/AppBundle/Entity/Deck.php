@@ -3,30 +3,16 @@
 
 namespace AppBundle\Entity;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="Deck")
- */
+
 class Deck
 {
-    /**
-     * @ORM\deck_id
-     * @ORM\Column(name="deck_id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+   
     protected $deck_id;
 	
-	/**
-	* Many partie have Many manche
-	* ManyToMany(targetEntity="Manche")
-	* ManyToMany(targetEntity="carte")
-	* @JoinTable(name="deck_carte_manche",
-	*	joinColumns={@JoinColumn(name="dcm_deck_id", referencedColumnName="deck_id")},
-	*	inverseJoinColumns={@JoinColumn(name="dcm_manche_id", referencedColumnName="manche_id"), 
-							@JoinColumn(name="dcm_carte_nom",referencedColumnName="carte_nom")}
-	*	)
-	*/
+
 	protected $deck_carte_manche;
+	
+	protected $deck_carte_id;
 
     public function __construct( )
     {
@@ -36,40 +22,29 @@ class Deck
 				, new Carte("Princess"), new Carte("Countess"), new Carte("King"), new Carte("Prince"), new Carte("Prince")
 				, new Carte("Handmaid"), new Carte("Handmaid"), new Carte("Baron"), new Carte("Baron"), new Carte("Priest"), new Carte("Priest"));
 			
-			/*array_push($this->arrayCarte, new Carte("Guard");
 			
-			array_push($this->arrayCarte, new Carte("Guard");
-			
-			array_push($this->arrayCarte, new Carte("Guard");
-			
-			array_push($this->arrayCarte, new Carte("Princess");
-				
-			array_push($this->arrayCarte, new Carte("Countess");
-	
-			array_push($this->arrayCarte, new Carte("King");
-	
-			array_push($this->arrayCarte, new Carte("Prince");
-			
-			array_push($this->arrayCarte, new Carte("Prince");
-
-			array_push($this->arrayCarte, new Carte("Handmaid");
-			
-			array_push($this->arrayCarte, new Carte("Handmaid");
-
-			array_push($this->arrayCarte, new Carte("Baron");
-			
-			array_push($this->arrayCarte, new Carte("Baron");
-		
-			array_push($this->arrayCarte, new Carte("Priest");
-			
-			array_push($this->arrayCarte, new Carte("Priest");
-				
-			array_push($this->arrayCarte, new Carte("Guard");*/
+			$this->deck_carte_id = array(
+				 'Guard' => 1,
+        		 'Priest' => 2,
+        		 'Baron' => 3,
+        		 'Handmaid' => 4,
+				 'Prince' => 5,
+				 'King' => 6,
+				 'Countess' => 7,
+				 'princess' => 8);
 			
     }
 	
 	public function getArrayDeck() {
 		return $this->arrayCarte;
+	}
+	
+	public function getId($nom) {
+		return $this->deck_carte_id[$nom];
+	}
+	
+	public function getArrayId() {
+		return $this->deck_carte_id;
 	}
 	
 	public function melanger() {
