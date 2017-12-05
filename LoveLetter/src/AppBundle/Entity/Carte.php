@@ -40,36 +40,36 @@ class Carte
 
     function  __construct($n)
     {
-		$this->nom = $n;
+		$this->carte_nom = $n;
 		$this->retournee = true;
-		switch ($this->nom) {
+		switch ($this->carte_nom) {
 			case "Princess":
-				$this->url = "img/Princess.png";
+				$this->carte_url = "img/Princess.png";
 				break;
 			case "Countess":
-				$this->url = "img/Countess.png";
+				$this->carte_url = "img/Countess.png";
 				break;
 			case "King":
-				$this->url = "img/King.png";
+				$this->carte_url = "img/King.png";
 				break;
 			case "Prince":
-				$this->url = "img/Prince.png";
+				$this->carte_url = "img/Prince.png";
 				break;
 			case "Handmaid":
-				$this->url = "img/Handmaid.png";
+				$this->carte_url = "img/Handmaid.png";
 				break;
 			case "Baron":
-				$this->url = "img/Baron.png";
+				$this->carte_url = "img/Baron.png";
 				break;
 			case "Priest":
-				$this->url = "img/Priest.png";
+				$this->carte_url = "img/Priest.png";
 				break;
 			case "Guard":
-				$this->url = "img/Guard.png";
+				$this->carte_url = "img/Guard.png";
 				break;
 			default:
-				$this->nom = "Guard";
-				$this->url = "img/Guard.png";
+				$this->carte_nom = "Guard";
+				$this->carte_url = "img/Guard.png";
 				break;
 		}
     }
@@ -98,45 +98,45 @@ class Carte
 	}
 	
 	public function setNom($n) {
-		$this->nom = $n;
-		switch ($this->nom) {
+		$this->carte_nom = $n;
+		switch ($this->carte_nom) {
 			case "Princess":
-				$this->url = "img/Princess.png";
+				$this->carte_url = "img/Princess.png";
 				break;
 			case "Countess":
-				$this->url = "img/Countess.png";
+				$this->carte_url = "img/Countess.png";
 				break;
 			case "King":
-				$this->url = "img/King.png";
+				$this->carte_url = "img/King.png";
 				break;
 			case "Prince":
-				$this->url = "img/Prince.png";
+				$this->carte_url = "img/Prince.png";
 				break;
 			case "Handmaid":
-				$this->url = "img/Handmaid.png";
+				$this->carte_url = "img/Handmaid.png";
 				break;
 			case "Baron":
-				$this->url = "img/Baron.png";
+				$this->carte_url = "img/Baron.png";
 				break;
 			case "Priest":
-				$this->url = "img/Priest.png";
+				$this->carte_url = "img/Priest.png";
 				break;
 			case "Guard":
-				$this->url = "img/Guard.png";
+				$this->carte_url = "img/Guard.png";
 				break;
 			default:
-				$this->nom = "Guard";
-				$this->url = "img/Guard.png";
+				$this->carte_nom = "Guard";
+				$this->carte_url = "img/Guard.png";
 				break;
 		}
 	}
 	
 	public function getNom() {
-		return $this->nom;
+		return $this->carte_nom;
 	}
 	
 	public function getUrl() {
-		return $this->url;
+		return $this->carte_url;
 	}
 	
 	public function getVerso() {

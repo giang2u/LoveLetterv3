@@ -9,6 +9,7 @@ use AppBundle\Entity\Carte;
 use AppBundle\Entity\Partie;
 use AppBundle\Entity\Joueur;
 use AppBundle\Entity\Manche;
+use AppBundle\Entity\Deck;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -139,16 +140,26 @@ class AdvertController extends Controller
 		$manche = new Manche();
 		$manche->setPartie($partie);
 		
+		$em->persist($partie);
+		$em->persist($manche);
+		
+		$em->flush();
+		
+		
+		//$manche2 = $em->getRepository('AppBundle:Manche')->find($manche->getId() );
+		
 		$deck = new Deck();
 		$deck->melanger();
 		
-		foreach($deck as $c) {
-			$carte = $em->getRepository('AppBundle:Carte')->find( $deck->getId( $c->getNom() ) );
-			$manche->addCarte($carte);
-		}
+		/*
+		foreach($deck->getArrayDeck() as $c) {
+			$carte = $em->getRepository('AppBundle:Carte')->find( $deck->getId( $c->getCarteNom() ) );
+			$manche2->addCarte($carte);
+		}*/
+		
 		
 		$em->persist($partie);
-		$em->persist($manche);
+		//$em->persist($manche2);
 		
 		$em->flush();
 
@@ -165,7 +176,7 @@ class AdvertController extends Controller
 		
 		
 		foreach($this->deck->getArrayDeck() as $c) {
-			array_push($this->listeCartes, $c->getNom());
+			array_push($this->listeCartes, $c->getCarteNom());
 			array_push($deck, $c->getUrl());
 		}
 		
