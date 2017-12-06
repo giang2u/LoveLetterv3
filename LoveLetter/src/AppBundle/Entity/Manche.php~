@@ -33,6 +33,17 @@ class Manche
 	 * @ORM\Column(name="manche_deck", type="array")
 	 */
 	private $cartes;
+	
+	
+	/**
+	 * @ORM\Column(name="manche_j1_main", type="array")
+	 */
+	private $mainj1;
+	
+	/**
+	 * @ORM\Column(name="manche_j2_main", type="array")
+	 */
+	private $mainj2;
 
     /**
      * Get id
@@ -122,4 +133,80 @@ class Manche
 
         return $this;
     }
+
+    /**
+     * Set mainj1
+     *
+     * @param array $mainj1
+     *
+     * @return Manche
+     */
+    public function setMainj1($mainj1)
+    {
+        $this->mainj1 = $mainj1;
+
+        return $this;
+    }
+	
+	public function addMainj1($carte)
+    {
+        $this->mainj1[] = $carte;
+
+        return $this;
+    }
+
+    /**
+     * Get mainj1
+     *
+     * @return array
+     */
+    public function getMainj1()
+    {
+        return $this->mainj1;
+    }
+	
+	
+	public function removeMainj1(\AppBundle\Entity\Carte $carte)
+    {
+        $this->mainj1->removeElement($carte);
+    }
+
+    /**
+     * Set mainj2
+     *
+     * @param array $mainj2
+     *
+     * @return Manche
+     */
+    public function setMainj2($mainj2)
+    {
+        $this->mainj2 = $mainj2;
+
+        return $this;
+    }
+	
+	public function addMainj2($carte)
+    {
+        $this->mainj2[] = $carte;
+
+        return $this;
+    }
+
+    /**
+     * Get mainj2
+     *
+     * @return array
+     */
+    public function getMainj2()	
+    {
+        return $this->mainj2;
+    }
+	
+	public function removeMainj2(\AppBundle\Entity\Carte $carte)
+    {
+        $this->mainj2->removeElement($carte);
+    }
+	
+	
+	
 }

@@ -15,6 +15,22 @@ class CarteController extends Controller
 {
 	
 	public function addAction(Request $request) {
+		
+		
+		
+		if (isset($_POST['carte_nom']) && $_POST['id_joueur'] == 1 ) {
+		$em = $this->getDoctrine()->getManager();
+		
+		
+		$carte = new Carte( $_POST['carte_nom'] );
+		
+		$manche2 = $em->getRepository('AppBundle:Manche')->find( $_POST['id_manche'] );
+		
+		$manche2->addMainj1( $carte );
+		
+		$em->flush();
+		
+		}
 		/*$carte = new Carte("Guard");
 		
 		$em = $this->getDoctrine()->getManager();

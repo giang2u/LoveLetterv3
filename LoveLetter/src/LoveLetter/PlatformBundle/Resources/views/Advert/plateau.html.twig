@@ -38,38 +38,61 @@
 		<script src="/LoveLetterv3/LoveLetter/web/jquery-3_2_1.js"></script>
 		<script>
 						
+						
+				/*document.getElementById('joueur1').innerHTML += '<img src="'+n[3]+'" width="150" height="200" />';
+				document.getElementById('joueur2').innerHTML += '<img src="'+n[4]+'" width="150" height="200" />';*/
+				
 				i = 1;
-				pioche = 3;
+				pioche = 5;
 				piocher = false;
 				
+				
+				alert( "test" );
 				
 		
 				function tirerCarte(){
 				
 				
-				var n = [];
-				 {% for item1 in deck %}
-					n.push( "{{ item1 }}" );
-				{% endfor %}
-			
+					if (pioche <= 15)  {
 				
+						var n = [];
+						 {% for item1 in deck %}
+							n.push( "{{ item1 }}" );
+						{% endfor %}
 				
+					//var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
+					
+					//alert( n[pioche] );
+					
+					//alert ( po );
+					
+						if (i%2 == 0 && !piocher) {
+							document.getElementById('joueur1').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';
+							
+										manche = {{ id_manche }};
+										$.ajax( {
+										   url : 'carteController.php',
+										   type : 'POST',
+										   data : 	'nom_carte=' + nom[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
+										   success : function(code_html, statut){
+											   alert("youpi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(resultat, statut, erreur){
+										   },
+										   complete : function(resultat, statut){
+										   alert( "reussi");
+										   }
+
+										});
+						} 
+						if (i%2 == 1 && !piocher) {
+							document.getElementById('joueur2').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';
+						
+						}
+						piocher = true;
+					pioche++;
 				
-				//var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
-				
-				//alert( n[pioche] );
-				
-				//alert ( po );
-				
-				if (i%2 == 0 && !piocher) {
-					document.getElementById('joueur1').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';
-				} 
-				if (i%2 == 1 && !piocher) {
-					document.getElementById('joueur2').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';
-				
-				}
-				piocher = true;
-				pioche++;
+					}
 				};
 			
 			

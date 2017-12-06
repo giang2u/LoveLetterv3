@@ -157,6 +157,9 @@ class AdvertController extends Controller
 			$manche2->addCarte($carte);
 		}
 		
+		$manche2->addMainj1( $deck->getArrayDeck()[3]);
+		$manche2->addMainj2( $deck->getArrayDeck()[4]);
+		
 		
 		$em->persist($partie);
 		$em->persist($manche2);
@@ -186,7 +189,9 @@ class AdvertController extends Controller
         				 'second' => $deck->getCarteDuDeck(1)->getUrl(),
         				 'trois' => $deck->getCarteDuDeck(2)->getUrl(),
 						 'deck' => $this->deck,
-						 'nom' => $this->listeCartes));
+						 'nom' => $this->listeCartes,
+						 'id_partie' => $partie->getId(),
+						 'id_manche' => $manche2->getId() ));
     	return new Response($content);
 	}
 	
