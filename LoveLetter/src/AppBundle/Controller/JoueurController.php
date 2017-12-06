@@ -5,9 +5,9 @@
 namespace AppBundle\Controller;
 
 // N'oubliez pas ce use :
-use AppBundle\Entity\Carte;
+/*use AppBundle\Entity\Carte;
 use AppBundle\Entity\Partie;
-use AppBundle\Entity\Joueur;
+use AppBundle\Entity\Joueur;*/
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,7 @@ class JoueurController extends Controller
 
 
 	public function joueurAction($n,$pre){
-		
+		/*
 		$em = $this->getDoctrine()->getManager();
 		
 		$j = new Joueur();
@@ -27,7 +27,7 @@ class JoueurController extends Controller
 		
 		$em->persist($j);
 		
-		/*
+		
 		$carte = new Carte("Guard");
 		$carte->setCarteNom("Princess");
 		$carte->setCarteUrl("/LoveLetterv3/LoveLetter/web/img/Princess.png");
@@ -35,7 +35,7 @@ class JoueurController extends Controller
 		
 		
 		$carte = $em->getRepository('AppBundle:Carte')->find(1);
-		$carte->setCarteNom("Guard");*/
+		$carte->setCarteNom("Guard");
 		
 		
 		$em->flush();
@@ -57,7 +57,7 @@ class JoueurController extends Controller
 
         $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:cartes.html.twig',
         		$this->listeCartes);
-    	return new Response($content);
+    	return new Response($content);*/
 	}
 	
 	

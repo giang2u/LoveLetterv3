@@ -44,32 +44,32 @@ class Carte
 		$this->retournee = true;
 		switch ($this->carte_nom) {
 			case "Princess":
-				$this->carte_url = "img/Princess.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Princess.png";
 				break;
 			case "Countess":
-				$this->carte_url = "img/Countess.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Countess.png";
 				break;
 			case "King":
-				$this->carte_url = "img/King.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/King.png";
 				break;
 			case "Prince":
-				$this->carte_url = "img/Prince.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Prince.png";
 				break;
 			case "Handmaid":
-				$this->carte_url = "img/Handmaid.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Handmaid.png";
 				break;
 			case "Baron":
-				$this->carte_url = "img/Baron.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Baron.png";
 				break;
 			case "Priest":
-				$this->carte_url = "img/Priest.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Priest.png";
 				break;
 			case "Guard":
-				$this->carte_url = "img/Guard.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Guard.png";
 				break;
 			default:
 				$this->carte_nom = "Guard";
-				$this->carte_url = "img/Guard.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Guard.png";
 				break;
 		}
     }
@@ -101,32 +101,32 @@ class Carte
 		$this->carte_nom = $n;
 		switch ($this->carte_nom) {
 			case "Princess":
-				$this->carte_url = "img/Princess.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Princess.png";
 				break;
 			case "Countess":
-				$this->carte_url = "img/Countess.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Countess.png";
 				break;
 			case "King":
-				$this->carte_url = "img/King.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/King.png";
 				break;
 			case "Prince":
-				$this->carte_url = "img/Prince.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Prince.png";
 				break;
 			case "Handmaid":
-				$this->carte_url = "img/Handmaid.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Handmaid.png";
 				break;
 			case "Baron":
-				$this->carte_url = "img/Baron.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Baron.png";
 				break;
 			case "Priest":
-				$this->carte_url = "img/Priest.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Priest.png";
 				break;
 			case "Guard":
-				$this->carte_url = "img/Guard.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Guard.png";
 				break;
 			default:
 				$this->carte_nom = "Guard";
-				$this->carte_url = "img/Guard.png";
+				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Guard.png";
 				break;
 		}
 	}
