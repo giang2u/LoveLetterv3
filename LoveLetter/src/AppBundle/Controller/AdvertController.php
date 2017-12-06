@@ -146,48 +146,46 @@ class AdvertController extends Controller
 		$em->flush();
 		
 		
-		//$manche2 = $em->getRepository('AppBundle:Manche')->find($manche->getId() );
+		$manche2 = $em->getRepository('AppBundle:Manche')->find($manche->getId() );
 		
 		$deck = new Deck();
 		$deck->melanger();
 		
-		/*
+		
 		foreach($deck->getArrayDeck() as $c) {
 			$carte = $em->getRepository('AppBundle:Carte')->find( $deck->getId( $c->getCarteNom() ) );
 			$manche2->addCarte($carte);
-		}*/
+		}
 		
 		
 		$em->persist($partie);
-		//$em->persist($manche2);
+		$em->persist($manche2);
 		
 		$em->flush();
 
 		$this->plateau = new Plateau();
 		
-		$this->deck = new Deck();
-		
-		$this->deck->melanger();
+		//$this->deck->melanger();
 		
 		$this->listeCartes = array();
 		
-		$deck = array();
+		$this->deck = array();
 		
 		
 		
-		foreach($this->deck->getArrayDeck() as $c) {
+		foreach($deck->getArrayDeck() as $c) {
 			array_push($this->listeCartes, $c->getCarteNom());
-			array_push($deck, $c->getUrl());
+			array_push($this->deck, $c->getUrl());
 		}
 		
 		
         $content = $this->get('templating')->render('LoveLetterPlatformBundle:Advert:plateau.html.twig',
         		array('plateau' => $this->plateau->getUrl(),
-        				 'verso' => $this->deck->getVerso(),
-        				 'first' => $this->deck->getCarteDuDeck(0)->getUrl(),
-        				 'second' => $this->deck->getCarteDuDeck(1)->getUrl(),
-        				 'trois' => $this->deck->getCarteDuDeck(2)->getUrl(),
-						 'deck' => $deck,
+        				 'verso' => $deck->getVerso(),
+        				 'first' => $deck->getCarteDuDeck(0)->getUrl(),
+        				 'second' => $deck->getCarteDuDeck(1)->getUrl(),
+        				 'trois' => $deck->getCarteDuDeck(2)->getUrl(),
+						 'deck' => $this->deck,
 						 'nom' => $this->listeCartes));
     	return new Response($content);
 	}

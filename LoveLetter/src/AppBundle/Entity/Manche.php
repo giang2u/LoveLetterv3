@@ -30,7 +30,7 @@ class Manche
 	
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Carte", cascade={"persist"})
+	 * @ORM\Column(name="manche_deck", type="array")
 	 */
 	private $cartes;
 
@@ -72,7 +72,7 @@ class Manche
      */
     public function __construct()
     {
-        $this->cartes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cartes = array();
     }
 
     /**
@@ -107,5 +107,19 @@ class Manche
     public function getCartes()
     {
         return $this->cartes;
+    }
+
+    /**
+     * Set cartes
+     *
+     * @param array $cartes
+     *
+     * @return Manche
+     */
+    public function setCartes($cartes)
+    {
+        $this->cartes = $cartes;
+
+        return $this;
     }
 }

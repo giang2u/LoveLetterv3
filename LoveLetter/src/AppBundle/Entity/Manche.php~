@@ -30,7 +30,7 @@ class Manche
 	
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Carte", cascade={"persist"})
+	 * @ORM\Column(name="manche_deck", type="array")
 	 */
 	private $cartes;
 
@@ -66,5 +66,60 @@ class Manche
     public function getPartie()
     {
         return $this->partie;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cartes = array();
+    }
+
+    /**
+     * Add carte
+     *
+     * @param \AppBundle\Entity\Carte $carte
+     *
+     * @return Manche
+     */
+    public function addCarte(\AppBundle\Entity\Carte $carte)
+    {
+        $this->cartes[] = $carte;
+
+        return $this;
+    }
+
+    /**
+     * Remove carte
+     *
+     * @param \AppBundle\Entity\Carte $carte
+     */
+    public function removeCarte(\AppBundle\Entity\Carte $carte)
+    {
+        $this->cartes->removeElement($carte);
+    }
+
+    /**
+     * Get cartes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCartes()
+    {
+        return $this->cartes;
+    }
+
+    /**
+     * Set cartes
+     *
+     * @param array $cartes
+     *
+     * @return Manche
+     */
+    public function setCartes($cartes)
+    {
+        $this->cartes = $cartes;
+
+        return $this;
     }
 }
