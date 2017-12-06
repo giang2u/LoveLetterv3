@@ -12,7 +12,7 @@
 			PLAYER 2
 			<br>
 		</div>
-		<div style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px">
+		<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px">
 
 
 			<img src="{{ asset(first) }}" align="center" height = 200  width = 150 alt="first" style="margin-top: 200px ; margin-bottom: 200px;"/>
@@ -41,17 +41,14 @@
 				i = 1;
 				pioche = 3;
 				piocher = false;
-				
-				
-		
-				function tirerCarte(){
-				
+
 				
 				var n = [];
 				 {% for item1 in deck %}
 					n.push( "{{ item1 }}" );
 				{% endfor %}
-			
+		
+				function tirerCarte(){
 				
 				
 				
@@ -62,10 +59,10 @@
 				//alert ( po );
 				
 				if (i%2 == 0 && !piocher) {
-					document.getElementById('joueur1').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';
+					document.getElementById('joueur2').innerHTML += '<input type="image" src="'+n[pioche]+'" width="150" height="200"  onclick="jouerCarte()" />';
 				} 
 				if (i%2 == 1 && !piocher) {
-					document.getElementById('joueur2').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';
+					document.getElementById('joueur1').innerHTML += '<input type="image" src="'+n[pioche]+'" width="150" height="200" onclick="jouerCarte()" />';
 				
 				}
 				piocher = true;
@@ -76,6 +73,10 @@
 			function findutour(){
 				i++;
 				piocher = false;
+			};
+
+			function jouerCarte(){
+				document.getElementById('plateau').innerHTML += '<img src="+n[pioche]+" align="center" height = 200  width = 150 alt="trois" style="margin-top: 200px; margin-bottom: 200px;"/>';
 			};
 			
 			
