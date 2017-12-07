@@ -55,6 +55,8 @@
 				 {% for item1 in deck %}
 					n.push( "{{ item1 }}" );
 				{% endfor %}
+				
+				
 		
 				function tirerCarte(){
 				
@@ -68,6 +70,8 @@
 					
 					//alert( n[pioche] );
 					
+					//data : 	'carte_id=' + id[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
+					
 					//alert ( po );
 					
 						if (i%2 == 0 && !piocher) {	
@@ -78,7 +82,15 @@
 										$.ajax( {
 										   url : 'carteController.php',
 										   type : 'POST',
-										   data : 	'nom_carte=' + nom[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
+										   /*data: {
+												function: 'addAction'
+												params: {
+													carte_id: id[pioche],
+													id_joueur: 1,
+													id_manche: manche
+												},
+											},*/
+										   data : 	'carte_id=' + id[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
 										   success : function(code_html, statut){
 											   alert("youpi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
 										   },
@@ -91,7 +103,7 @@
 										});
 						} 
 						if (i%2 == 1 && !piocher) {
-							document.getElementById('joueur2').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';	document.getElementById('joueur1').innerHTML += '<input type="image" src="'+n[pioche]+'" width="150" height="200" onclick="jouerCarte()" />';
+							document.getElementById('joueur1').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';	document.getElementById('joueur1').innerHTML += '<input type="image" src="'+n[pioche]+'" width="150" height="200" onclick="jouerCarte()" />';
 
 						
 						}
