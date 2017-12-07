@@ -80,8 +80,10 @@
 						
 						if (i%2 == 0 && !piocher) {	
 
-						document.getElementById('joueur2').innerHTML += '<img id ="pioche" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+						document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+						alert('<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />');
 							piocher = true;
+						pioche++;
 							
 										manche = {{ id_manche }};
 										$.ajax( {
@@ -101,12 +103,13 @@
 						}
 						
 						if (i%2 == 1 && !piocher) {
-							document.getElementById('joueur1').innerHTML += '<img id = "pioche" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+						alert('<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />');
 
 						
 						piocher = true;
-						}
 						pioche++;
+						}
 					
 					}
 				};
