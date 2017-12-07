@@ -56,13 +56,19 @@
 					n.push( "{{ item1 }}" );
 				{% endfor %}
 				
+				var id = [];
+				 {% for item1 in id %}
+					id.push( "{{ item1 }}" );
+				{% endfor %}
+				
+				
 				
 		
 				function tirerCarte(){
 				
 				if (pioche <= 15)  {
 				
-				//var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
+				var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
 				
 				//alert( n[pioche] );
 				
@@ -70,45 +76,87 @@
 					
 					//alert( n[pioche] );
 					
+					///LoveLetterv3/LoveLetter/src/AppBundle/Controller/
+					
 					//data : 	'carte_id=' + id[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
 					
 					//alert ( po );
 					
 						if (i%2 == 0 && !piocher) {	
 						document.getElementById('joueur2').innerHTML += '<input type="image" src="'+n[pioche]+'" width="150" height="200"  onclick="jouerCarte()" />';
-			
+						piocher = true;
 							
 										manche = {{ id_manche }};
+										
+										//cnx().ajax.phpPostAsyn("carteController.php", "addAction", readData, id[pioche], manche);
+										
 										$.ajax( {
-										   url : 'carteController.php',
+										   url : 'CarteController.php',
 										   type : 'POST',
-										   /*data: {
-												function: 'addAction'
-												params: {
-													carte_id: id[pioche],
-													id_joueur: 1,
-													id_manche: manche
-												},
-											},*/
-										   data : 	'carte_id=' + id[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
-										   success : function(code_html, statut){
-											   alert("youpi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   data : 'action=addAction&carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
+										   dataType: 'text',
+										   success : function(){
+											   alert("reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
 										   },
-										   error : function(resultat, statut, erreur){
+										   error : function(){
+										   alert( "echec" );
 										   },
-										   complete : function(resultat, statut){
-										   alert( "reussi");
+										   complete : function(){
+										   alert( "complet");
 										   }
 
 										});
+										
 						} 
 						if (i%2 == 1 && !piocher) {
 							document.getElementById('joueur1').innerHTML += '<img src="'+n[pioche]+'" width="150" height="200" />';	document.getElementById('joueur1').innerHTML += '<input type="image" src="'+n[pioche]+'" width="150" height="200" onclick="jouerCarte()" />';
+							piocher = true;
+							manche = {{ id_manche }};
+							/*
+										$.ajax( {
+										   url : 'CarteController.php',
+										   type : 'POST',
+										   
+										   data : 'carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
+										   dataType: 'text',
+										   success : function(){
+											    alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(){
+										    alert( "echec");
+										   },
+										   complete : function(){
+										   alert( "complet");
+										   }
 
+										});*/
+										
+										
+										$.ajax( {
+										   url : '/LoveLetterv3/LoveLetter/web/CarteController.php',
+										   type : 'POST',
+										    data: {
+                             fonction:'addAction',
+                             params: {carte_id: id[pioche],
+                                          id_manche: manche},
+									},
+										  // data : 'action=addAction&carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
+										  // dataType: 'text',
+										   success : function(){
+											    alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(){
+										    alert( "echec");
+										   },
+										   complete : function(){
+										   alert( "complet");
+										   }
+
+										});
+										
 						
 						}
-						piocher = true;
-					pioche++;
+						pioche++;
 					}
 				};
 			

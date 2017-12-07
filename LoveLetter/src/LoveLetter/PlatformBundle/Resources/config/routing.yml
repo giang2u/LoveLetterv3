@@ -13,3 +13,6 @@ love_letter_platform_cartes:
 love_letter_platform_plateau:
     path:     /plateau
     defaults: { _controller: AppBundle:Advert:plateau }
+    
+    
+    
