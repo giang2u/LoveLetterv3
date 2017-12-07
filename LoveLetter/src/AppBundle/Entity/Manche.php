@@ -148,9 +148,17 @@ class Manche
         return $this;
     }
 	
-	public function addMainj1($carte)
+	
+	/**
+     * Add mainj1
+     *
+     * @param integer $carte_id
+     *
+     * @return Manche
+     */
+	public function addMainj1($carte_id)
     {
-        $this->mainj1[] = $carte;
+        $this->mainj1[] = $carte_id;
 
         return $this;
     }
@@ -166,9 +174,9 @@ class Manche
     }
 	
 	
-	public function removeMainj1(\AppBundle\Entity\Carte $carte)
+	public function removeMainj1( $carte_id )
     {
-        $this->mainj1->removeElement($carte);
+        $this->mainj1->removeElement($carte_id);
     }
 
     /**
@@ -185,9 +193,17 @@ class Manche
         return $this;
     }
 	
-	public function addMainj2($carte)
+	
+	/**
+     * Add mainj2
+     *
+     * @param integer $carte_id
+     *
+     * @return Manche
+     */
+	public function addMainj2($carte_id)
     {
-        $this->mainj2[] = $carte;
+        $this->mainj2[] = $carte_id;
 
         return $this;
     }
@@ -202,9 +218,11 @@ class Manche
         return $this->mainj2;
     }
 	
-	public function removeMainj2(\AppBundle\Entity\Carte $carte)
+	
+	
+	public function removeMainj2($carte_id)
     {
-        $this->mainj2->removeElement($carte);
+        $this->mainj2->removeElement($carte_id);
     }
 	
 	

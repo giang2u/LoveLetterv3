@@ -80,9 +80,8 @@
 						
 						if (i%2 == 0 && !piocher) {	
 
-						document.getElementById('joueur2').innerHTML += '<img id = pioche src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+						document.getElementById('joueur2').innerHTML += '<img id ="pioche" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
 							piocher = true;
-							alert ( '<img id ="pioche" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />' );
 							
 										manche = {{ id_manche }};
 										$.ajax( {
