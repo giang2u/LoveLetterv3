@@ -40,6 +40,28 @@
 			
 		</div>
 		
+					<dialog id="favDialog">
+				  <form method="dialog">
+					<section>
+					  <p><label for="favAnimal">Carte à défausser :</label>
+					  <select id="Carte" name="Carte">
+						<option></option>
+						<option>Crevette de saumure</option>
+						<option>Panda roux</option>
+						<option>Singe-araignée</option>
+					  </select></p>
+					</section>
+					<menu>
+					  <button id="cancel" type="reset">Annuler</button>
+					  <button type="submit">Confirmer</button>
+					</menu>
+				  </form>
+				</dialog>
+				
+				<menu>
+				  <button id="updateDetails" hidden>Update details</button>
+				</menu>
+		
 		{% set pioche = 3 %}
 		
 		
@@ -62,7 +84,8 @@
  				jouer = false;
 				poser = 0;
 					
-
+				j1_handmaid = 0;
+				j2_handmaid = 0;
 				var mainj1 = [];
 				var mainj1_idpioche = [];
 				var mainj2 = [];
@@ -139,7 +162,6 @@
 						
 						var pos = 0;
 						
-						alert (nom_carte[pioche-1]);	
 						
 						if (nom_carte[pioche -1] == "Countess" ) countessRule(1);
 						if ( nom_carte[pioche -1] == "King" || nom_carte[pioche -1] == "Prince") countessRule(0);
@@ -169,6 +191,10 @@
 
 						document.getElementById('plateau').replaceChild(terrain2,document.getElementById(t1));
 						document.getElementById('plateau').insertBefore(terrain1, document.getElementById('horsjeu'));
+						
+						if (j2_handmaid == 1) {
+							j2_handmaid = 0;
+						}
 					}
 
 
@@ -184,12 +210,19 @@
 
 						document.getElementById('plateau').replaceChild(terrain1,document.getElementById(t2));
 						document.getElementById('plateau').insertBefore(terrain2, document.getElementById('horsjeu'));
+						
+						if (j1_handmaid == 1) {
+							j1_handmaid = 0;
+						}
 					}
+					
+					
 					
 					i++;
 				}
 				else{
-					alert('joué une carte avant de passer ');
+				
+					alert('jouer une carte avant de passer ');
 				}
 				
 			};
@@ -216,8 +249,14 @@
 			    if(id == 'terrainP1' && poser < 1){
 				
 					
-					if (mainj1_idpioche[0] == data) mainj1.splice(0, 1); mainj1_idpioche.splice(0, 1);
-					if (mainj1_idpioche[1] == data) mainj1.splice(1, 1); mainj1_idpioche.splice(1, 1);
+					if (mainj1_idpioche[0] == data) { 
+					mainj1.splice(0, 1);
+					mainj1_idpioche.splice(0, 1);
+					}
+					if (mainj1_idpioche[1] == data) {
+					mainj1.splice(1, 1); 
+					mainj1_idpioche.splice(1, 1);
+					}
 					
 					verif = true;
 					
@@ -225,10 +264,16 @@
 			    }
 			    if(id == 'terrainP2' && poser < 1){
 				
-					index = mainj2.indexOf(id[carte_joue]);
-					mainj2.splice(index, 1);
-					
-					mainj2_idpioche.splice(index, 1);
+				
+					if (mainj2_idpioche[0] == data) {
+					mainj2.splice(0, 1); 
+					mainj2_idpioche.splice(0, 1); 
+					}
+					if (mainj2_idpioche[1] == data) {
+					mainj2.splice(1, 1);
+					mainj2_idpioche.splice(1, 1);
+					}
+				
 					verif = true;
 					
 			    }
@@ -237,7 +282,30 @@
 					ev.target.appendChild(document.getElementById(data));
 					poser++;
 					jouer = true;
-					etat_de_la_carte[ id[pioche] ] = "JOUEE";
+					etat_de_la_carte[ data ] = "JOUEE";
+					
+					
+					switch (nom_carte[data]) {
+						case "Guard":
+							guard();
+							break;
+						case "priest":
+							guard();
+							break;
+						case "Baron":
+							guard();
+							break;
+						case "Handmaid":
+							handmaidRule();
+							break;
+						case "Prince":
+							princeRule();
+							break;
+						case "King":
+							kingRule();
+							break;
+					}
+					
 					
 					if (pioche == 15) {
 						finDuJeu();
@@ -274,6 +342,7 @@
 					break;
 				}
 				partie_fini = true;
+				alert("Carte jouee " + etat_de_la_carte);
 			
 			}
 			
@@ -300,26 +369,59 @@
 			/* -------------------------------------  REGLE DES CARTES  ----------------------------------------------------------- */ 
 			
 			
-					/*				 Princess (1), si vous défaussez cette carte, vous
+					/*				
+						
+						A FAIRE
+
+
+					Princess (1), si vous défaussez cette carte, vous
 						êtes éliminé de la manche.
-						7 - Countess (1), Si vous avez cette carte en main en
-						même temps que le King ou le Prince, alors vous
-						devez défausser la carte de la Countess
-						6 - King(1), échangez votre main avec un autre
-						joueur de votre choix.
-						5 - Prince (2), choisissez un joueur (y compris
-						vous), celui-ci défausse la carte qu'il a en main pour
-						en piocher une nouvelle.
-						4 - Handmaid (2), Jusqu'au prochain tour, vous êtes
-						protégé des effets des cartes des autres joueurs.
+						
+						
+						
+						
 						3 - Baron (2) - Comparez votre carte avec celle d'un
 						autre joueur, celui qui a la carte avec la plus faible
 						valeur est éliminé de la manche.
+						
 						2 - Priest (2) - Regardez la main d'un autre joueur.
+						
+						
+						EN COURS
+						
+						
 						1 - Guard (5) - Choisissez un joueur et essayez de
 						deviner la carte qu'il a en main (excepté le Guard),
 						si vous tombez juste, le joueur est éliminé de la
-						manche.*/
+						manche.
+						
+						
+						
+						PB ECHANGE DE CARTE ET DID DE BALISE
+						6 - King(1), échangez votre main avec un autre
+						joueur de votre choix.
+						
+						
+						
+						5 - Prince (2), choisissez un joueur (y compris
+						vous), celui-ci défausse la carte qu'il a en main pour
+						en piocher une nouvelle.
+						
+						
+						
+							FAIT 
+						
+						
+						7 - Countess (1), Si vous avez cette carte en main en
+						même temps que le King ou le Prince, alors vous
+						devez défausser la carte de la Countess
+					
+						
+						4 - Handmaid (2), Jusqu'au prochain tour, vous êtes
+						protégé des effets des cartes des autres joueurs.
+						
+						
+						*/
 			
 			function verif_carte_jouer(id_carte) {
 				switch (id_carte) {
@@ -335,7 +437,6 @@
 						gagnant_id = 2;
 					}
 				}
-
 				if(i%2 == 1){
 					if(mainj2.includes(choice)){
 						partie = true;
@@ -346,9 +447,6 @@
 			}*/
 			
 			function countessRule(pos) {
-				
-				
-				
 				var verif = false;
 				var po = 0;
 				
@@ -363,15 +461,15 @@
 							
 							if ( verif	) {
 								
-								var el = document.getElementById(mainj1_idpioche[pos]);
+								alert( "Vous avez une comtesse et un roi/king vous allez donc etre défaussez de la comtesse");
 								
+								var el = document.getElementById(mainj1_idpioche[pos]);
 								
 								el.parentNode.removeChild(el);
 								
 								mainj1.splice(pos, 1);
 								mainj1_idpioche.splice(pos, 1);
-								etat_de_la_carte[pioche] = "DEFAUSSEE";
-								
+								etat_de_la_carte[mainj1_idpioche[pos]] = "DEFAUSSEE";
 								
 							}
 						}
@@ -379,9 +477,6 @@
 					} else {
 							
 						if ( mainj2.length == 2 ) {
-						
-						
-						
 						
 							// king or prince
 							if ( pos == 1 ) verif = (mainj2[0] == 6 ||  mainj2[0] == 5);
@@ -391,27 +486,119 @@
 							
 							if ( verif	) {
 							
+								alert( "Vous avez une comtesse et un roi/king vous allez donc etre défaussez de la comtesse");
 							
-								
 								var el = document.getElementById(mainj2_idpioche[pos]);
 								
 								el.parentNode.removeChild(el);
 								
-								
 								mainj2.splice(pos, 1);
 								mainj2_idpioche.splice(pos, 1);
-								etat_de_la_carte[pioche] = "DEFAUSSEE";
+								etat_de_la_carte[mainj2_idpioche[pos]] = "DEFAUSSEE";
 								
-								
-									
 							}
 						}
 					}
-				
+			}
+			
+			function handmaidRule() {
+				if ( i%2 == 1 ) {
+					j1_handmaid = 1;
+				}
+				else if ( i%2 == 0) {
+					j2_handmaid = 1;
+				}
+			}
+			
+			function kingRule() {
+			
+					var temp = [];
+					var tempj = [];
+			
+					temp = mainj1;
+					tempj = mainj1_idpioche;
+					
+					
+					
+					mainj1 = mainj2;
+					mainj1_idpioche = mainj2_idpioche;
+					
+					
+					mainj2 = temp;
+					mainj2_idpioche = tempj;
+					
+					
+					var player2 = document.getElementById('joueur2');
+					var player1 = document.getElementById('joueur1');
+					var test = player1.innerHTML;
+					
+					/*document.getElementById('manche').replaceChild(player2,document.getElementById('joueur1'));
+					
+					
+					document.getElementById('manche').insertBefore(player1, document.getElementById('joueur2'));*/
+					
+					alert ( player2.innerHTML);
+					player1.innerHTML = player2.innerHTML;
+					player2.innerHTML = test;
+					
 			}
 			
 			
 			
+			function princeRule() {
+			
+			/*$("#updateDetails").click(function(e){
+						e.preventDefault();
+						$("#updateDetails").trigger('click');
+					});*/
+					
+					document.getElementById('updateDetails').click();
+			}
+			
+			
+			
+			
+			(function () {
+		  var updateButton = document.getElementById('updateDetails');
+		  var cancelButton = document.getElementById('cancel');
+		  var favDialog = document.getElementById('favDialog');
+		  var carte = document.getElementById('Carte');
+		  
+		  if (i%2 == 1) {
+			for (k =0; k < mainj1.length; k++) 	carte.innerHTML +=  '<option>' + mainj1[k] + '</option>';
+		  }
+
+		  // Update button opens a modal dialog
+		  updateButton.addEventListener('click', function() {
+			favDialog.showModal();
+		  });
+
+		  // Form cancel button closes the dialog box
+		  cancelButton.addEventListener('click', function() {
+			favDialog.close();
+		  });
+		}) ();
+		
+		
+		
+		
+			
+					
+				/*	(function () {
+		  var updateButton = document.getElementById('updateDetails');
+		  var cancelButton = document.getElementById('cancel');
+		  var favDialog = document.getElementById('favDialog');
+
+		  // Update button opens a modal dialog
+		  updateButton.addEventListener('click', function() {
+			favDialog.showModal();
+		  });
+
+		  // Form cancel button closes the dialog box
+		  cancelButton.addEventListener('click', function() {
+			favDialog.close();
+		  });
+		}) ();*/
 
 			
 			
