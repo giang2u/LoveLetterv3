@@ -55,6 +55,25 @@
 				<menu>
 				  <button id="updateDetails" hidden>Update details</button>
 				</menu>
+
+
+				<dialog id="dialogGuard">
+				  <form method="dialog">
+					<section>
+					  <p><label for="ChoiceCArte">Joueur à défausser :</label>
+					  	<select id="CarteVictime" name="CarteVictime">
+					  </select></p>
+					</section>
+					<menu>
+					  <button id="close" type="reset">Annuler</button>
+					  <button id="ok" type="submit">Confirmer</button>
+					</menu>
+				  </form>
+				</dialog>
+				
+				<menu>
+				  <button id="updateCheck" hidden>Update details</button>
+				</menu>
 		
 		{% set pioche = 3 %}
 		
@@ -281,7 +300,7 @@
 					
 					switch (nom_carte[data]) {
 						case "Guard":
-							guard();
+							guardRule();
 							break;
 						case "priest":
 							guard();
@@ -420,22 +439,7 @@
 					
 				}
 			
-			}/*
-			fucntion guardRule(){
-				if(i%2 == 0){
-					if(mainj1.includes(choice)){
-						partie = true;
-						gagnant_id = 2;
-					}
-				}
-				if(i%2 == 1){
-					if(mainj2.includes(choice)){
-						partie = true;
-						gagnant_id = 1;
-					}
-				}
-
-			}*/
+			}
 			
 			function countessRule(pos) {
 				var verif = false;
@@ -531,7 +535,43 @@
 					document.getElementById("p1").innerHTML = "PLAYER 2";
 					
 			}
+
+			function guardRule(){
+					document.getElementById('updateCheck').click();
+			}
+
+			/*if(i%2 == 0){
+					if(mainj1.includes(choice)){
+						partie = true;
+						gagnant_id = 2;
+					}
+				}
+				if(i%2 == 1){
+					if(mainj2.includes(choice)){
+						partie = true;
+						gagnant_id = 1;
+					}
+				}*/
+
 			
+		(function () {
+		  var updateButtonGuard = document.getElementById('updateCheck');
+		  var cancelButtonGuard = document.getElementById('close');
+		  var favDialogGuard = document.getElementById('dialogGuard');
+		  var ok = document.getElementById('ok');
+		  var carteV = document.getElementById('CarteVictime');
+		  
+
+		carteV.innerHTML +=  '<option> 1 </option>';
+		carteV.innerHTML +=  '<option> 2 </option>';
+		  updateButtonGuard.addEventListener('click', function() {
+			favDialogGuard.showModal();
+		  });
+		  cancelButtonGuard.addEventListener('click', function() {
+			favDialogGuard.close();
+		  });
+		  
+		})();
 			
 			
 			function princeRule() {
