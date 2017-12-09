@@ -41,17 +41,13 @@
 					<dialog id="favDialog">
 				  <form method="dialog">
 					<section>
-					  <p><label for="favAnimal">Carte à défausser :</label>
+					  <p><label for="favAnimal">Joueur à défausser :</label>
 					  <select id="Carte" name="Carte">
-						<option></option>
-						<option>Crevette de saumure</option>
-						<option>Panda roux</option>
-						<option>Singe-araignée</option>
 					  </select></p>
 					</section>
 					<menu>
 					  <button id="cancel" type="reset">Annuler</button>
-					  <button type="submit">Confirmer</button>
+					  <button id="confirm" type="submit">Confirmer</button>
 					</menu>
 				  </form>
 				</dialog>
@@ -525,8 +521,10 @@
 					
 					var player2 = document.getElementById('joueur2');
 					var player1 = document.getElementById('joueur1');
-					var test = player1.innerHTML;
+					//var test = player1.innerHTML;
 					
+
+			
 					player1.innerHTML = player2.innerHTML;
 					player2.innerHTML = test;
 					document.getElementById("p2").innerHTML = "PLAYER 1";
@@ -553,11 +551,12 @@
 		  var updateButton = document.getElementById('updateDetails');
 		  var cancelButton = document.getElementById('cancel');
 		  var favDialog = document.getElementById('favDialog');
+		  var confirm = document.getElementById('confirm');
 		  var carte = document.getElementById('Carte');
 		  
-		  if (i%2 == 1) {
-			for (k =0; k < mainj1.length; k++) 	carte.innerHTML +=  '<option>' + mainj1[k] + '</option>';
-		  }
+
+				carte.innerHTML +=  '<option> 1 </option>';
+				carte.innerHTML +=  '<option> 2 </option>';
 
 		  // Update button opens a modal dialog
 		  updateButton.addEventListener('click', function() {
@@ -568,11 +567,47 @@
 		  cancelButton.addEventListener('click', function() {
 			favDialog.close();
 		  });
+		  
+		  confirm.addEventListener('click', function() {
+			var strUser = carte.options[carte.selectedIndex].value;
+			defausse(strUser);
+		  });
 		}) ();
 		
 		
 		
-		
+		function defausse(j) {
+			if (j == 1) {
+				if (mainj1 > 0) {
+					document.getElementById(mainj1_idpioche[0]).remove();
+					mainj1.splice(0, 1); 
+					mainj1_idpioche.splice(0, 1); 
+					
+					
+					document.getElementById('joueur1').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+							
+							mainj2.push(id[pioche]);
+							mainj2_idpioche.push(pioche);
+							
+					pioche++;
+				}
+			} 
+			
+			if ( j == 2 ) {
+				if (mainj2 > 0) {
+					document.getElementById(mainj2_idpioche[0]).remove();
+					mainj2.splice(0, 1); 
+					mainj2_idpioche.splice(0, 1);
+					
+					document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+							
+							mainj2.push(id[pioche]);
+							mainj2_idpioche.push(pioche);	
+
+					pioche++;							
+				}
+			}
+		}
 			
 					
 				/*	(function () {
