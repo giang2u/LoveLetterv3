@@ -386,12 +386,12 @@
 						deviner la carte qu'il a en main (excepté le Guard),
 						si vous tombez juste, le joueur est éliminé de la
 						manche.
-					
+							EN COURES
 						
 
 						
 						
-						FAIT
+							EN COURS 
 						
 						
 						7 - Countess (1), Si vous avez cette carte en main en
