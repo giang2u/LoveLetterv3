@@ -22,11 +22,17 @@ class Deck
 			$this->verso = "img/verso.jpg";
 		$this->verso_test = "verso";
 			$this->arrayCarte = array();
-			array_push($this->arrayCarte, new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Baron"), new Carte("Countess") 
+			array_push($this->arrayCarte, new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Countess") 
+				, new Carte("King"),  new Carte("Prince"),  new Carte("Prince"), new Carte("Guard"),  new Carte("Guard")
+				, new Carte("Handmaid"), new Carte("Handmaid"), new Carte("Baron"), new Carte("Baron"), new Carte("Priest"), new Carte("Priest"));
+		
+			
+			
+			/*array_push($this->arrayCarte, new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Baron"), new Carte("Countess") 
 				, new Carte("King"),  new Carte("Baron"),  new Carte("Prince"), new Carte("Baron"),  new Carte("Guard")
 				, new Carte("Handmaid"), new Carte("Handmaid"), new Carte("Baron"), new Carte("Baron"), new Carte("Priest"), new Carte("Priest"));
 			
-			/*
+			
 			array_push($this->arrayCarte, new Carte("Guard"), new Carte("Guard"), new Carte("Guard"), new Carte("Princess"), new Carte("Countess") 
 				, new Carte("King"),  new Carte("Prince"),  new Carte("Prince"), new Carte("Guard"),  new Carte("Guard")
 				, new Carte("Handmaid"), new Carte("Handmaid"), new Carte("Baron"), new Carte("Baron"), new Carte("Priest"), new Carte("Priest"));
