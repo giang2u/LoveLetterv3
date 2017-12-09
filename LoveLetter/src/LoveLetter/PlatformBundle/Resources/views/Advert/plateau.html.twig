@@ -5,7 +5,7 @@
   <head>
     <title>Bienvenue sur LoveLetter !</title>
   </head>
-  <body>
+  <body id="manche">
     <h1 align="middle" >Plateau de jeu</h1>
 		
 		<div id="joueur2" align="middle">
@@ -24,7 +24,6 @@
 
 			<img src="{{ asset(verso) }}" align="center" height = 200  width = 150 alt="verso" style="margin-top: 200px; margin-bottom: 200px; float:right;" onclick="tirerCarte()"/>
 
-			<input type="image" value="Endtour" style="margin-top: 300px; margin-bottom: 150px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour()" />
 
 
 			<div id="terrainP1" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id)" ondragover="allowDrop(event)" ></div>
@@ -36,6 +35,8 @@
 			<br>
 		</div>
 		
+
+		<input type="image" value="Endtour" style="margin-top: 300px; margin-bottom: 150px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour('joueur2','joueur1')" />
 		
 		{% set pioche = 3 %}
 		
@@ -51,7 +52,7 @@
 				document.getElementById('joueur2').innerHTML += '<img src="'+n[4]+'" width="150" height="200" />';*/
 				
 				i = 1;
-				pioche = 5;
+				pioche = 3;
 				piocher = false;
 
 				mainP1 = 1;
@@ -125,10 +126,14 @@
 				};
 			
 			
-			function findutour(){
+			function findutour(id1,id2){
 				if(mainP1 < 2 && mainP2 < 2 ){
 					i++;
 					piocher = false;
+					alert(id1);
+					playerTemps = document.getElementsById(id1);
+					document.getElementsById("manche").removeChild(document.getElementsById(id1));
+					document.getElementsById("manche").insertBefore(tmp, document.getElementsById(id2));
 				}
 				else{
 					alert('joeur une carte avant de passer ');
