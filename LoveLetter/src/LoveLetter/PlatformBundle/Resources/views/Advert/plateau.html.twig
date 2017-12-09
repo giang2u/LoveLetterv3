@@ -6,30 +6,30 @@
     <title>Bienvenue sur LoveLetter !</title>
   </head>
   <body>
-    <h1 align="middle" >Plateau de jeu</h1>
-		<div id="manche" >
+    <h1 align="middle"></h1>
+		<div id="manche">
 			<div id="joueur2" align="middle">
 				PLAYER 2
 				<br>
 			</div>
-			<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px" >
+			<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; width: cover; height: 400px; margin-right:100px; margin-left:100px" >
 
-				<div id="terrainP2" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
+				<div id="terrainP2" style=" width: cover; height: 118px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
 
 
 				<div id="horsjeu">
-				<img src="{{ asset(first) }}" align="center" height = 200  width = 150 alt="first" style="margin-top: 200px ; margin-bottom: 200px;"/>
-				<img src="{{ asset(second) }}" align="center" height = 200  width = 150 alt="second" style="margin-top: 200px; margin-bottom: 200px;"/>
-				<img src="{{ asset(trois) }}" align="center" height = 200  width = 150 alt="trois" style="margin-top: 200px; margin-bottom: 200px;"/>
+				<img src="{{ asset(first) }}" align="center" height = 80  width = 50 alt="first" style="margin-top: 20px ; margin-bottom: 20px;"/>
+				<img src="{{ asset(second) }}" align="center" height = 80  width = 50 alt="second" style="margin-top: 20px; margin-bottom: 20px;"/>
+				<img src="{{ asset(trois) }}" align="center" height = 80  width = 50 alt="trois" style="margin-top: 20px; margin-bottom: 20px;"/>
 
-				<img src="{{ asset(verso) }}" align="center" height = 200  width = 150 alt="verso" style="margin-top: 200px; margin-bottom: 200px; float:right;" onclick="tirerCarte()"/>
+				<img src="{{ asset(verso) }}" align="center" height = 80  width = 50 alt="verso" style="margin-top: 20px; margin-bottom: 20px; float:right;" onclick="tirerCarte()"/>
 
-				<input type="image" value="Endtour" style="margin-top: 300px; margin-bottom: 150px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour('joueur1', 'joueur2', 'terrainP1', 'terrainP2')" />
+				<input type="image" height = 50  width = 80 value="Endtour" style="margin-top: 20px; margin-bottom: 20px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour('joueur1', 'joueur2', 'terrainP1', 'terrainP2')" />
 
 				</div>
 
 
-				<div id="terrainP1" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
+				<div id="terrainP1" style=" width: cover; height: 118px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
 
 			</div>
 
@@ -90,20 +90,19 @@
 				
 				
 				
-				
-				
-				
-				
-				document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+
+				document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="50" height="80" " />';
 				mainj1.push(id[pioche]);
 				mainj1_idpioche.push(pioche);
-				
 				pioche++;
 				
-				document.getElementById('joueur2').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+				document.getElementById('joueur2').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="50" height="80" " />';
 				mainj2.push(id[pioche]);
 				mainj2_idpioche.push(pioche);
 				pioche++;
+				
+				
+				
 				
 		
 				function tirerCarte(){
@@ -115,7 +114,7 @@
 						
 							manche = {{ id_manche }};
 							
-							document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+							document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="50" height="80" " />';
 							
 							mainj2.push(id[pioche]);
 							mainj2_idpioche.push(pioche);
@@ -129,7 +128,7 @@
 							
 							manche = {{ id_manche }};
 										
-							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event,1,pioche)" width="150" height="200" " />';
+							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event,1,pioche)" width="50" height="80" " />';
 							
 							mainj1.push(id[pioche]);
 							mainj1_idpioche.push(pioche);
