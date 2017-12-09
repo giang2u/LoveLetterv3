@@ -5,38 +5,40 @@
   <head>
     <title>Bienvenue sur LoveLetter !</title>
   </head>
-  <body id="manche">
+  <body>
     <h1 align="middle" >Plateau de jeu</h1>
-		
-		<div id="joueur2" align="middle">
-			PLAYER 2
-			<br>
+		<div id="manche" >
+			<div id="joueur2" align="middle">
+				PLAYER 2
+				<br>
+			</div>
+			<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px" >
+
+				<div id="terrainP2" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
+
+
+				<div id="horsjeu">
+				<img src="{{ asset(first) }}" align="center" height = 200  width = 150 alt="first" style="margin-top: 200px ; margin-bottom: 200px;"/>
+				<img src="{{ asset(second) }}" align="center" height = 200  width = 150 alt="second" style="margin-top: 200px; margin-bottom: 200px;"/>
+				<img src="{{ asset(trois) }}" align="center" height = 200  width = 150 alt="trois" style="margin-top: 200px; margin-bottom: 200px;"/>
+
+				<img src="{{ asset(verso) }}" align="center" height = 200  width = 150 alt="verso" style="margin-top: 200px; margin-bottom: 200px; float:right;" onclick="tirerCarte()"/>
+
+				</div>
+
+
+				<div id="terrainP1" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
+
+			</div>
+
+			<div id = "joueur1" align="middle"> 
+				PLAYER 1
+				<br>
+			</div>
+			
+
+			<input type="image" value="Endtour" style="margin-top: 300px; margin-bottom: 150px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour('joueur1', 'joueur2', 'terrainP1', 'terrainP2')" />
 		</div>
-		<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px" >
-
-			<div id="terrainP2" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id)" ondragover="allowDrop(event, id)" ></div>
-
-
-			<img src="{{ asset(first) }}" align="center" height = 200  width = 150 alt="first" style="margin-top: 200px ; margin-bottom: 200px;"/>
-			<img src="{{ asset(second) }}" align="center" height = 200  width = 150 alt="second" style="margin-top: 200px; margin-bottom: 200px;"/>
-			<img src="{{ asset(trois) }}" align="center" height = 200  width = 150 alt="trois" style="margin-top: 200px; margin-bottom: 200px;"/>
-
-
-			<img src="{{ asset(verso) }}" align="center" height = 200  width = 150 alt="verso" style="margin-top: 200px; margin-bottom: 200px; float:right;" onclick="tirerCarte()"/>
-
-
-
-			<div id="terrainP1" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id)" ondragover="allowDrop(event)" ></div>
-
-		</div>
-
-		<div id = "joueur1" align="middle"> 
-			PLAYER 1
-			<br>
-		</div>
-		
-
-		<input type="image" value="Endtour" style="margin-top: 300px; margin-bottom: 150px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour('joueur2','joueur1')" />
 		
 		{% set pioche = 3 %}
 		
@@ -48,50 +50,48 @@
 		<script>
 						
 						
-				/*document.getElementById('joueur1').innerHTML += '<img src="'+n[3]+'" width="150" height="200" />';
-				document.getElementById('joueur2').innerHTML += '<img src="'+n[4]+'" width="150" height="200" />';*/
 				
 				i = 1;
 				pioche = 3;
 				piocher = false;
 
-				mainP1 = 1;
-				mainP2 = 1;
  				joeur = false;
 				poser = 0;
 					
 
+				var mainj1 = [];
+				var mainj2 = [];
 
 				
 				var n = [];
 				 {% for item1 in deck %}
 					n.push( "{{ item1 }}" );
 				{% endfor %}
+				
+				var id = [];
+				 {% for item1 in id %}
+					id.push( "{{ item1 }}" );
+				{% endfor %}
 
 
 				document.getElementById('joueur2').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+				mainj2.push(id[pioche]);
 				pioche++;
 				document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+				mainj1.push(id[pioche]);
 				pioche++;
 		
 				function tirerCarte(){
 				
 				if (pioche <= 15)  {
 				
-				//var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
 				
-				//alert( n[pioche] );
-				
-					//var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
-					
-					//alert( n[pioche] );
-					
-					//alert ( po );
 						
 						if (i%2 == 0 && !piocher) {	
 
 						document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
-						mainP2 = mainP2 + 1 ;
+						
+						mainj2.push(id[pioche]);
 						piocher = true;
 						pioche++;
 							
@@ -113,12 +113,33 @@
 						}
 						
 						if (i%2 == 1 && !piocher) {
-							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
-							mainP1 = mainP1 + 1 ;
-							
-							
 
-						
+							piocher = true;
+							manche = {{ id_manche }};
+										
+										$.ajax( {
+										   url : '/LoveLetterv3/LoveLetter/web/CarteController.php',
+										   type : 'POST',
+										    data: {
+												fonction:'addAction',
+												params: {carte_id: id[pioche],
+                                          id_manche: manche},
+									},
+										  // data : 'action=addAction&carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
+										  // dataType: 'text',
+										   success : function(){
+											  //  alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(){
+										   // alert( "echec");
+										   },
+										   complete : function(){
+										   //alert( "complet");
+										   }
+										   });
+							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event,1,pioche)" width="150" height="200" " />';
+							
+							mainj1.push(id[pioche]);
 						piocher = true;
 						pioche++;
 						}
@@ -126,14 +147,41 @@
 				};
 			
 			
-			function findutour(id1,id2){
-				if(mainP1 < 2 && mainP2 < 2 ){
-					i++;
+
+			function findutour(j1,j2,t1,t2){
+				if(mainj1.length < 2 && mainj2.length < 2 ){
 					piocher = false;
-					alert(id1);
-					playerTemps = document.getElementsById(id1);
-					document.getElementsById("manche").removeChild(document.getElementsById(id1));
-					document.getElementsById("manche").insertBefore(tmp, document.getElementsById(id2));
+					poser = 0;
+					if(i%2 == 1){
+						var player2 = document.getElementById(j2);
+						var player1 = document.getElementById(j1);
+						document.getElementById('manche').replaceChild(player2,document.getElementById(j1));
+						document.getElementById('manche').insertBefore(player1, document.getElementById('plateau'));
+
+						var terrain1 = document.getElementById(t1);
+						var terrain2 = document.getElementById(t2);
+
+						document.getElementById('plateau').replaceChild(terrain2,document.getElementById(t1));
+						document.getElementById('plateau').insertBefore(terrain1, document.getElementById('horsjeu'));
+					}
+
+
+					if(i%2 == 0){
+						var player2 = document.getElementById(j2);
+						var player1 = document.getElementById(j1);
+						document.getElementById('manche').replaceChild(player1,document.getElementById(j2));
+						document.getElementById('manche').insertBefore(player2, document.getElementById('plateau'));
+
+
+						var terrain1 = document.getElementById(t1);
+						var terrain2 = document.getElementById(t2);
+
+						document.getElementById('plateau').replaceChild(terrain1,document.getElementById(t2));
+						document.getElementById('plateau').insertBefore(terrain2, document.getElementById('horsjeu'));
+					}
+					
+					i++;
+
 				}
 				else{
 					alert('joeur une carte avant de passer ');
@@ -145,23 +193,57 @@
 			    ev.preventDefault();
 			}
 
-			function drag(ev,i) {
+			function drag(ev, joueur, pioche) {
+				
 			    ev.dataTransfer.setData("text", ev.target.id);
+				
 			}
 
-			function drop(ev,id) {
-			    ev.preventDefault();
-			    var data = ev.dataTransfer.getData("text");
-			    ev.target.appendChild(document.getElementById(data));
+			function drop(ev,id, pioche) {
+				var index;
+				verif = false;
+			    
 			    if(id == 'terrainP1' && poser < 1){
-			    	mainP1--;
+					index = mainj1.indexOf(id[pioche]);
+					mainj1.splice(index, 1);
+					verif = true;
 			    }
 			    if(id == 'terrainP2' && poser < 1){
-			    	mainP2--;
-			    	jouer == false;
+					index = mainj2.indexOf(id[pioche]);
+					mainj2.splice(index, 1);
+					verif = true;
 			    }
+				
+				if ( verif == true) {
+					ev.preventDefault();
+					var data = ev.dataTransfer.getData("text");
+					ev.target.appendChild(document.getElementById(data));
+					poser++;
+				}
+				
 			}
 
+			
+			
+			/*
+										$.ajax( {
+										   url : 'CarteController.php',
+										   type : 'POST',
+										   
+										   data : 'carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
+										   dataType: 'text',
+										   success : function(){
+											    alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(){
+										    alert( "echec");
+										   },
+										   complete : function(){
+										   alert( "complet");
+										   }
+
+
+										});*/
 
 			
 		</script>
