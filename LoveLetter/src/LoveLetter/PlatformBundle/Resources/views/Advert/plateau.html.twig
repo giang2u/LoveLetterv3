@@ -9,8 +9,7 @@
     <h1 align="middle"></h1>
 		<div id="manche">
 			<div id="joueur2" align="middle">
-				PLAYER 2
-				<br>
+				<p id="p2">PLAYER 2</p>
 			</div>
 			<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; width: cover; height: 400px; margin-right:100px; margin-left:100px" >
 
@@ -34,8 +33,7 @@
 			</div>
 
 			<div id = "joueur1" align="middle"> 
-				PLAYER 1
-				<br>
+				<p id="p1">PLAYER 1</p>
 			</div>
 			
 		</div>
@@ -532,14 +530,10 @@
 					var player1 = document.getElementById('joueur1');
 					var test = player1.innerHTML;
 					
-					/*document.getElementById('manche').replaceChild(player2,document.getElementById('joueur1'));
-					
-					
-					document.getElementById('manche').insertBefore(player1, document.getElementById('joueur2'));*/
-					
-					alert ( player2.innerHTML);
 					player1.innerHTML = player2.innerHTML;
 					player2.innerHTML = test;
+					document.getElementById("p2").innerHTML = "PLAYER 1";
+					document.getElementById("p1").innerHTML = "PLAYER 2";
 					
 			}
 			
