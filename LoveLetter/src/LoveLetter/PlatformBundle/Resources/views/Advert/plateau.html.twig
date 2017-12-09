@@ -73,7 +73,7 @@
 				piocher = false;
 				
 				partie_fini = false;
-				gagnant = 0;
+				gagnant = -1;
 
  				jouer = false;
 				poser = 0;
@@ -286,8 +286,8 @@
 						case "priest":
 							guard();
 							break;
-						case "Baron":
-							guard();
+						case "Baron":	
+							baronRule();
 							break;
 						case "Handmaid":
 							handmaidRule();
@@ -297,6 +297,8 @@
 							break;
 						case "King":
 							kingRule();
+							break;
+						default:
 							break;
 					}
 					
@@ -336,7 +338,6 @@
 					break;
 				}
 				partie_fini = true;
-				alert("Carte jouee " + etat_de_la_carte);
 			
 			}
 			
@@ -368,15 +369,12 @@
 						A FAIRE
 
 
-					Princess (1), si vous défaussez cette carte, vous
-						êtes éliminé de la manche.
+					
 						
 						
 						
 						
-						3 - Baron (2) - Comparez votre carte avec celle d'un
-						autre joueur, celui qui a la carte avec la plus faible
-						valeur est éliminé de la manche.
+						
 						
 						2 - Priest (2) - Regardez la main d'un autre joueur.
 						
@@ -391,15 +389,7 @@
 						
 						
 						
-						PB ECHANGE DE CARTE ET DID DE BALISE
-						6 - King(1), échangez votre main avec un autre
-						joueur de votre choix.
 						
-						
-						
-						5 - Prince (2), choisissez un joueur (y compris
-						vous), celui-ci défausse la carte qu'il a en main pour
-						en piocher une nouvelle.
 						
 						
 						
@@ -414,6 +404,24 @@
 						4 - Handmaid (2), Jusqu'au prochain tour, vous êtes
 						protégé des effets des cartes des autres joueurs.
 						
+						
+						
+						6 - King(1), échangez votre main avec un autre
+						joueur de votre choix.
+						
+						
+						
+						5 - Prince (2), choisissez un joueur (y compris
+						vous), celui-ci défausse la carte qu'il a en main pour
+						en piocher une nouvelle.
+						
+						3 - Baron (2) - Comparez votre carte avec celle d'un
+						autre joueur, celui qui a la carte avec la plus faible
+						valeur est éliminé de la manche.
+						
+						
+						Princess (1), si vous défaussez cette carte, vous
+						êtes éliminé de la manche.
 						
 						*/
 			
@@ -535,7 +543,22 @@
 					
 			}
 			
-			
+			function baronRule() {
+				if ( mainj1[0] > mainj2[0] || ( mainj2.length == 0 && mainj1.length !== 0  ) ) {
+					alert(" J1 WIN ");
+					gagnant = 1;
+					partie_fini = true;
+					finDuJeu();
+					
+				}
+				else if ( mainj1[0] < mainj2[0] || (mainj1.length == 0 && mainj2.length !== 0 )) {
+					alert(" J2 WIN ");
+					gagnant = 2;
+					partie_fini = true;
+					finDuJeu();
+				}
+				
+			}
 			
 			function princeRule() {
 			
@@ -546,6 +569,8 @@
 					
 					document.getElementById('updateDetails').click();
 			}
+			
+			
 			
 			
 			
@@ -582,32 +607,44 @@
 		function defausse(j) {
 			if (j == 1) {
 				if (mainj1 > 0) {
-					document.getElementById(mainj1_idpioche[0]).remove();
-					mainj1.splice(0, 1); 
-					mainj1_idpioche.splice(0, 1); 
-					
-					
-					document.getElementById('joueur1').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
-							
-							mainj2.push(id[pioche]);
-							mainj2_idpioche.push(pioche);
-							
-					pioche++;
+					if (mainj1[0] !== 8 ) {
+						document.getElementById(mainj1_idpioche[0]).remove();
+						mainj1.splice(0, 1); 
+						mainj1_idpioche.splice(0, 1); 
+						
+						
+						document.getElementById('joueur1').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+								
+						mainj2.push(id[pioche]);
+						mainj2_idpioche.push(pioche);
+								
+						pioche++;
+					} else {
+						gagnant = 2;
+						partie_fini;
+						finDuJeu();
+					}
 				}
 			} 
 			
 			if ( j == 2 ) {
 				if (mainj2 > 0) {
-					document.getElementById(mainj2_idpioche[0]).remove();
-					mainj2.splice(0, 1); 
-					mainj2_idpioche.splice(0, 1);
-					
-					document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
-							
-							mainj2.push(id[pioche]);
-							mainj2_idpioche.push(pioche);	
+					if (mainj2[0] !== 8 ) {
+						document.getElementById(mainj2_idpioche[0]).remove();
+						mainj2.splice(0, 1); 
+						mainj2_idpioche.splice(0, 1);
+						
+						document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+								
+						mainj2.push(id[pioche]);
+						mainj2_idpioche.push(pioche);	
 
-					pioche++;							
+						pioche++;	
+					} else {
+						gagnant = 1;
+						partie_fini;
+						finDuJeu();
+					}					
 				}
 			}
 		}
