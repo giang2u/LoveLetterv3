@@ -14,22 +14,22 @@
 			</div>
 			<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; width: cover; height: 400px; margin-right:100px; margin-left:100px" >
 
-				<div id="terrainP2" style=" width: cover; height: 118px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
+				<div id="terrainP2" style=" width: cover; height: 110px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
 
 
 				<div id="horsjeu">
-				<img src="{{ asset(first) }}" align="center" height = 80  width = 50 alt="first" style="margin-top: 20px ; margin-bottom: 20px;"/>
-				<img src="{{ asset(second) }}" align="center" height = 80  width = 50 alt="second" style="margin-top: 20px; margin-bottom: 20px;"/>
-				<img src="{{ asset(trois) }}" align="center" height = 80  width = 50 alt="trois" style="margin-top: 20px; margin-bottom: 20px;"/>
+				<img src="{{ asset(first) }}" align="center" height = 100  width = 75 alt="first" style="margin-top: 20px ; margin-bottom: 20px;"/>
+				<img src="{{ asset(second) }}" align="center" height = 100  width = 75 alt="second" style="margin-top: 20px; margin-bottom: 20px;"/>
+				<img src="{{ asset(trois) }}" align="center" height = 100  width = 75 alt="trois" style="margin-top: 20px; margin-bottom: 20px;"/>
 
-				<img src="{{ asset(verso) }}" align="center" height = 80  width = 50 alt="verso" style="margin-top: 20px; margin-bottom: 20px; float:right;" onclick="tirerCarte()"/>
+				<img src="{{ asset(verso) }}" align="center" height = 100  width = 75 alt="verso" style="margin-top: 20px; margin-bottom: 20px; float:right;" onclick="tirerCarte()"/>
 
 				<input type="image" height = 50  width = 80 value="Endtour" style="margin-top: 20px; margin-bottom: 20px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour('joueur1', 'joueur2', 'terrainP1', 'terrainP2')" />
 
 				</div>
 
 
-				<div id="terrainP1" style=" width: cover; height: 118px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
+				<div id="terrainP1" style=" width: cover; height: 110px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
 
 			</div>
 
@@ -91,12 +91,12 @@
 				
 				
 
-				document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="50" height="80" " />';
+				document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
 				mainj1.push(id[pioche]);
 				mainj1_idpioche.push(pioche);
 				pioche++;
 				
-				document.getElementById('joueur2').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="50" height="80" " />';
+				document.getElementById('joueur2').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
 				mainj2.push(id[pioche]);
 				mainj2_idpioche.push(pioche);
 				pioche++;
@@ -114,7 +114,7 @@
 						
 							manche = {{ id_manche }};
 							
-							document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="50" height="80" " />';
+							document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
 							
 							mainj2.push(id[pioche]);
 							mainj2_idpioche.push(pioche);
@@ -128,7 +128,7 @@
 							
 							manche = {{ id_manche }};
 										
-							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event,1,pioche)" width="50" height="80" " />';
+							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event,1,pioche)" width="75" height="100" " />';
 							
 							mainj1.push(id[pioche]);
 							mainj1_idpioche.push(pioche);
@@ -327,7 +327,7 @@
 					
 				}
 			
-			}
+			}/*
 			fucntion guardRule(choice){
 				if(i%2 == 0){
 					if(mainj1.includes(choice)){
@@ -343,7 +343,7 @@
 					}
 				}
 
-			}
+			}*/
 			
 			function countessRule(pos) {
 				
