@@ -1,0 +1,714 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/plateau.html.twig #}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bienvenue sur LoveLetter !</title>
+  </head>
+  <body>
+    <h1 align="middle"></h1>
+		<div id="manche">
+			<div id="joueur2" align="middle">
+				<p id="p2">PLAYER 2</p>
+			</div>
+			<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; width: cover; height: 400px; margin-right:100px; margin-left:100px" >
+
+				<div id="terrainP2" style=" width: cover; height: 110px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
+
+
+				<div id="horsjeu">
+				<img src="{{ asset(first) }}" align="center" height = 100  width = 75 alt="first" style="margin-top: 20px ; margin-bottom: 20px;"/>
+				<img src="{{ asset(second) }}" align="center" height = 100  width = 75 alt="second" style="margin-top: 20px; margin-bottom: 20px;"/>
+				<img src="{{ asset(trois) }}" align="center" height = 100  width = 75 alt="trois" style="margin-top: 20px; margin-bottom: 20px;"/>
+
+				<img src="{{ asset(verso) }}" align="center" height = 100  width = 75 alt="verso" style="margin-top: 20px; margin-bottom: 20px; float:right;" onclick="tirerCarte()"/>
+
+				<input type="image" height = 50  width = 80 value="Endtour" style="margin-top: 20px; margin-bottom: 20px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour('joueur1', 'joueur2', 'terrainP1', 'terrainP2')" />
+
+				</div>
+
+
+				<div id="terrainP1" style=" width: cover; height: 110px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
+
+			</div>
+
+			<div id = "joueur1" align="middle"> 
+				<p id="p1">PLAYER 1</p>
+			</div>
+			
+		</div>
+		
+					<dialog id="favDialog">
+				  <form method="dialog">
+					<section>
+					  <p><label for="favAnimal">Joueur à défausser :</label>
+					  <select id="Carte" name="Carte">
+					  </select></p>
+					</section>
+					<menu>
+					  <button id="cancel" type="reset">Annuler</button>
+					  <button id="confirm" type="submit">Confirmer</button>
+					</menu>
+				  </form>
+				</dialog>
+				
+				<menu>
+				  <button id="updateDetails" hidden>Update details</button>
+				</menu>
+		
+		{% set pioche = 3 %}
+		
+		
+		{% block javascripts %}
+		
+		
+		<script src="/LoveLetterv3/LoveLetter/web/jquery-3_2_1.js"></script>
+		<script>
+						
+						
+				
+				i = 1;
+				pioche = 3;
+				
+				piocher = false;
+				
+				partie_fini = false;
+				gagnant = -1;
+
+ 				jouer = false;
+				poser = 0;
+					
+				j1_handmaid = 0;
+				j2_handmaid = 0;
+				var mainj1 = [];
+				var mainj1_idpioche = [];
+				var mainj2 = [];
+				var mainj2_idpioche = [];
+				
+				
+				
+				var n = [];
+				 {% for item1 in deck %}
+					n.push( "{{ item1 }}" );
+				{% endfor %}
+				
+				var id = [];
+				 {% for item1 in id %}
+					id.push( "{{ item1 }}" );
+				{% endfor %}
+				
+				
+				var etat_de_la_carte = [];
+				var nom_carte = [];
+				{% for item1 in nom %}
+					etat_de_la_carte.push(  "PAS JOUEE" );
+					nom_carte.push( "{{ item1 }}" );
+				{% endfor %}
+				
+				
+				
+
+				document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+				mainj1.push(id[pioche]);
+				mainj1_idpioche.push(pioche);
+				pioche++;
+				
+				document.getElementById('joueur2').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+				mainj2.push(id[pioche]);
+				mainj2_idpioche.push(pioche);
+				pioche++;
+				
+				
+				
+				
+		
+				function tirerCarte(){
+				
+				if (pioche <= 15 && !partie_fini)  {
+				
+						
+						if (i%2 == 0 && !piocher) {	
+						
+							manche = {{ id_manche }};
+							
+							document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+							
+							mainj2.push(id[pioche]);
+							mainj2_idpioche.push(pioche);
+							
+							piocher = true;
+							pioche++;
+										
+						}
+						if (i%2 == 1 && !piocher) {
+
+							
+							manche = {{ id_manche }};
+										
+							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event,1,pioche)" width="75" height="100" " />';
+							
+							mainj1.push(id[pioche]);
+							mainj1_idpioche.push(pioche);
+						
+							piocher = true;
+							pioche++;
+						}
+						
+						var pos = 0;
+						
+						
+						if (nom_carte[pioche -1] == "Countess" ) countessRule(1);
+						if ( nom_carte[pioche -1] == "King" || nom_carte[pioche -1] == "Prince") countessRule(0);
+						
+						
+						
+					} else {
+						finDuJeu();
+					}
+				};
+			
+			
+
+			function findutour(j1,j2,t1,t2){
+				if(mainj1.length < 2 && mainj2.length < 2 ){
+					piocher = false;
+					poser = 0;
+					jouer = false;
+					if(i%2 == 1){
+						var player2 = document.getElementById(j2);
+						var player1 = document.getElementById(j1);
+						document.getElementById('manche').replaceChild(player2,document.getElementById(j1));
+						document.getElementById('manche').insertBefore(player1, document.getElementById('plateau'));
+
+						var terrain1 = document.getElementById(t1);
+						var terrain2 = document.getElementById(t2);
+
+						document.getElementById('plateau').replaceChild(terrain2,document.getElementById(t1));
+						document.getElementById('plateau').insertBefore(terrain1, document.getElementById('horsjeu'));
+						
+						if (j2_handmaid == 1) {
+							j2_handmaid = 0;
+						}
+					}
+
+
+					if(i%2 == 0){
+						var player2 = document.getElementById(j2);
+						var player1 = document.getElementById(j1);
+						document.getElementById('manche').replaceChild(player1,document.getElementById(j2));
+						document.getElementById('manche').insertBefore(player2, document.getElementById('plateau'));
+
+
+						var terrain1 = document.getElementById(t1);
+						var terrain2 = document.getElementById(t2);
+
+						document.getElementById('plateau').replaceChild(terrain1,document.getElementById(t2));
+						document.getElementById('plateau').insertBefore(terrain2, document.getElementById('horsjeu'));
+						
+						if (j1_handmaid == 1) {
+							j1_handmaid = 0;
+						}
+					}
+					
+					
+					
+					i++;
+				}
+				else{
+				
+					alert('jouer une carte avant de passer ');
+				}
+				
+			};
+
+			function allowDrop(ev) {
+			    if (!partie_fini) ev.preventDefault();
+			}
+
+			function drag(ev, joueur, pioche) {
+				if (!partie_fini)  ev.dataTransfer.setData("text", ev.target.id);
+				
+			}
+
+			function drop(ev,id, carte_joue) {
+			
+				ev.preventDefault();
+				var data = ev.dataTransfer.getData("text");
+					
+			
+				if (!partie_fini) {
+				var index;
+				var verif = false;
+			    
+			    if(id == 'terrainP1' && poser < 1){
+				
+					
+					if (mainj1_idpioche[0] == data) { 
+					mainj1.splice(0, 1);
+					mainj1_idpioche.splice(0, 1);
+					}
+					if (mainj1_idpioche[1] == data) {
+					mainj1.splice(1, 1); 
+					mainj1_idpioche.splice(1, 1);
+					}
+					
+					verif = true;
+					
+					
+			    }
+			    if(id == 'terrainP2' && poser < 1){
+				
+				
+					if (mainj2_idpioche[0] == data) {
+					mainj2.splice(0, 1); 
+					mainj2_idpioche.splice(0, 1); 
+					}
+					if (mainj2_idpioche[1] == data) {
+					mainj2.splice(1, 1);
+					mainj2_idpioche.splice(1, 1);
+					}
+				
+					verif = true;
+					
+			    }
+				
+				if ( verif == true) {
+					ev.target.appendChild(document.getElementById(data));
+					poser++;
+					jouer = true;
+					etat_de_la_carte[ data ] = "JOUEE";
+					
+					
+					switch (nom_carte[data]) {
+						case "Guard":
+							guard();
+							break;
+						case "priest":
+							guard();
+							break;
+						case "Baron":	
+							baronRule();
+							break;
+						case "Handmaid":
+							handmaidRule();
+							break;
+						case "Prince":
+							princeRule();
+							break;
+						case "King":
+							kingRule();
+							break;
+						default:
+							break;
+					}
+					
+					
+					if (pioche == 15) {
+						finDuJeu();
+					}
+				} else {
+					ev.preventDefault();
+				}
+				
+				}
+				
+			}
+			
+			
+			function finDuJeu() {
+			
+				var gagnant_id = 0;
+				
+				if (partie_fini ) {
+					gagnant_id = gagnant;
+				} 
+				else if (pioche > 15 ||(pioche == 15 && jouer) ) {
+					gagnant_id = comparerMain();
+				}
+
+				switch (gagnant_id) {
+				case 0:
+					alert( " MATCH NUL, VOUS ETES NUL NUL NUL");
+					break;
+				case 1:
+					alert( " BRAVO JOUEUR 1 FIER GUERRIER BZ LA  ");
+					break;
+				case 2:
+					alert( " BRAVO JOUEUR 2 FIER GUERRIER BZ LA");
+					break;
+				}
+				partie_fini = true;
+			
+			}
+			
+			
+			function comparerMain() {
+			
+					gagnant_id	 = 0;
+					
+					if ( mainj1.length == 0 && mainj2.length == 0 ) gagnant_id = 0;
+					else if ( mainj1.length == 0 && mainj2.length !== 0 ) gagnant_id = 2;
+					else if ( mainj2.length == 0 && mainj1.length !== 0 ) gagnant_id = 1;
+					else {
+						if ( mainj1[0] < mainj2[0] ) gagnant_id = 2;
+						else if ( mainj1[0] > mainj2[0] ) gagnant_id = 1;
+						else if ( mainj1[0] == mainj2[0] ) gagnant_id = 0;
+					}
+					
+				return gagnant_id;
+			}
+			
+			
+			
+			
+			/* -------------------------------------  REGLE DES CARTES  ----------------------------------------------------------- */ 
+			
+			
+					/*				
+						
+						A FAIRE
+
+
+					
+						
+						
+						
+						
+						
+						
+						2 - Priest (2) - Regardez la main d'un autre joueur.
+						
+						
+						EN COURS
+						
+						
+						1 - Guard (5) - Choisissez un joueur et essayez de
+						deviner la carte qu'il a en main (excepté le Guard),
+						si vous tombez juste, le joueur est éliminé de la
+						manche.
+					
+						
+
+						
+						
+						FAIT
+						
+						
+						7 - Countess (1), Si vous avez cette carte en main en
+						même temps que le King ou le Prince, alors vous
+						devez défausser la carte de la Countess
+					
+						
+						4 - Handmaid (2), Jusqu'au prochain tour, vous êtes
+						protégé des effets des cartes des autres joueurs.
+						
+						
+						
+						6 - King(1), échangez votre main avec un autre
+						joueur de votre choix.
+						
+						
+						
+						5 - Prince (2), choisissez un joueur (y compris
+						vous), celui-ci défausse la carte qu'il a en main pour
+						en piocher une nouvelle.
+						
+						3 - Baron (2) - Comparez votre carte avec celle d'un
+						autre joueur, celui qui a la carte avec la plus faible
+						valeur est éliminé de la manche.
+						
+						
+						Princess (1), si vous défaussez cette carte, vous
+						êtes éliminé de la manche.
+						
+						*/
+			
+			function verif_carte_jouer(id_carte) {
+				switch (id_carte) {
+				case 8:
+					
+				}
+			
+			}/*
+			fucntion guardRule(){
+				if(i%2 == 0){
+					if(mainj1.includes(choice)){
+						partie = true;
+						gagnant_id = 2;
+					}
+				}
+				if(i%2 == 1){
+					if(mainj2.includes(choice)){
+						partie = true;
+						gagnant_id = 1;
+					}
+				}
+
+			}*/
+			
+			function countessRule(pos) {
+				var verif = false;
+				var po = 0;
+				
+					if ( i%2 == 1 ) {
+						if ( mainj1.length == 2 ) {
+					
+							// king or prince
+							if ( pos == 1 ) verif = (mainj1[0] == 6 ||  mainj1[0] == 5);
+							
+							// if fisrt card is countess
+							else if (pos == 0) verif = ( mainj1[0] == 7 );
+							
+							if ( verif	) {
+								
+								alert( "Vous avez une comtesse et un roi/king vous allez donc etre défaussez de la comtesse");
+								
+								var el = document.getElementById(mainj1_idpioche[pos]);
+								
+								el.parentNode.removeChild(el);
+								
+								mainj1.splice(pos, 1);
+								mainj1_idpioche.splice(pos, 1);
+								etat_de_la_carte[mainj1_idpioche[pos]] = "DEFAUSSEE";
+								
+							}
+						}
+					
+					} else {
+							
+						if ( mainj2.length == 2 ) {
+						
+							// king or prince
+							if ( pos == 1 ) verif = (mainj2[0] == 6 ||  mainj2[0] == 5);
+							
+							// if fisrt card is countess
+							else if (pos == 0) verif = ( mainj2[0] == 7 );
+							
+							if ( verif	) {
+							
+								alert( "Vous avez une comtesse et un roi/king vous allez donc etre défaussez de la comtesse");
+							
+								var el = document.getElementById(mainj2_idpioche[pos]);
+								
+								el.parentNode.removeChild(el);
+								
+								mainj2.splice(pos, 1);
+								mainj2_idpioche.splice(pos, 1);
+								etat_de_la_carte[mainj2_idpioche[pos]] = "DEFAUSSEE";
+								
+							}
+						}
+					}
+			}
+			
+			function handmaidRule() {
+				if ( i%2 == 1 ) {
+					j1_handmaid = 1;
+				}
+				else if ( i%2 == 0) {
+					j2_handmaid = 1;
+				}
+			}
+			
+			function kingRule() {
+			
+					var temp = [];
+					var tempj = [];
+			
+					temp = mainj1;
+					tempj = mainj1_idpioche;
+					
+					
+					
+					mainj1 = mainj2;
+					mainj1_idpioche = mainj2_idpioche;
+					
+					
+					mainj2 = temp;
+					mainj2_idpioche = tempj;
+					
+					
+					var player2 = document.getElementById('joueur2');
+					var player1 = document.getElementById('joueur1');
+					//var test = player1.innerHTML;
+					
+
+			
+					player1.innerHTML = player2.innerHTML;
+					player2.innerHTML = test;
+					document.getElementById("p2").innerHTML = "PLAYER 1";
+					document.getElementById("p1").innerHTML = "PLAYER 2";
+					
+			}
+			
+			function baronRule() {
+				if ( mainj1[0] > mainj2[0] || ( mainj2.length == 0 && mainj1.length !== 0  ) ) {
+					alert(" J1 WIN ");
+					gagnant = 1;
+					partie_fini = true;
+					finDuJeu();
+					
+				}
+				else if ( mainj1[0] < mainj2[0] || (mainj1.length == 0 && mainj2.length !== 0 )) {
+					alert(" J2 WIN ");
+					gagnant = 2;
+					partie_fini = true;
+					finDuJeu();
+				}
+				
+			}
+			
+			function princeRule() {
+			
+			/*$("#updateDetails").click(function(e){
+						e.preventDefault();
+						$("#updateDetails").trigger('click');
+					});*/
+					
+					document.getElementById('updateDetails').click();
+			}
+			
+			
+			
+			
+			
+			
+			(function () {
+		  var updateButton = document.getElementById('updateDetails');
+		  var cancelButton = document.getElementById('cancel');
+		  var favDialog = document.getElementById('favDialog');
+		  var confirm = document.getElementById('confirm');
+		  var carte = document.getElementById('Carte');
+		  
+
+				carte.innerHTML +=  '<option> 1 </option>';
+				carte.innerHTML +=  '<option> 2 </option>';
+
+		  // Update button opens a modal dialog
+		  updateButton.addEventListener('click', function() {
+			favDialog.showModal();
+		  });
+
+		  // Form cancel button closes the dialog box
+		  cancelButton.addEventListener('click', function() {
+			favDialog.close();
+		  });
+		  
+		  confirm.addEventListener('click', function() {
+			var strUser = carte.options[carte.selectedIndex].value;
+			defausse(strUser);
+		  });
+		}) ();
+		
+		
+		
+		function defausse(j) {
+			if (j == 1) {
+				if (mainj1 > 0) {
+					if (mainj1[0] !== 8 ) {
+						document.getElementById(mainj1_idpioche[0]).remove();
+						mainj1.splice(0, 1); 
+						mainj1_idpioche.splice(0, 1); 
+						
+						
+						document.getElementById('joueur1').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+								
+						mainj2.push(id[pioche]);
+						mainj2_idpioche.push(pioche);
+								
+						pioche++;
+					} else {
+						gagnant = 2;
+						partie_fini;
+						finDuJeu();
+					}
+				}
+			} 
+			
+			if ( j == 2 ) {
+				if (mainj2 > 0) {
+					if (mainj2[0] !== 8 ) {
+						document.getElementById(mainj2_idpioche[0]).remove();
+						mainj2.splice(0, 1); 
+						mainj2_idpioche.splice(0, 1);
+						
+						document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
+								
+						mainj2.push(id[pioche]);
+						mainj2_idpioche.push(pioche);	
+
+						pioche++;	
+					} else {
+						gagnant = 1;
+						partie_fini;
+						finDuJeu();
+					}					
+				}
+			}
+		}
+			
+					
+				/*	(function () {
+		  var updateButton = document.getElementById('updateDetails');
+		  var cancelButton = document.getElementById('cancel');
+		  var favDialog = document.getElementById('favDialog');
+
+		  // Update button opens a modal dialog
+		  updateButton.addEventListener('click', function() {
+			favDialog.showModal();
+		  });
+
+		  // Form cancel button closes the dialog box
+		  cancelButton.addEventListener('click', function() {
+			favDialog.close();
+		  });
+		}) ();*/
+
+			
+			
+			/*	$.ajax( {
+										   url : '/LoveLetterv3/LoveLetter/web/CarteController.php',
+										   type : 'POST',
+										    data: {
+												fonction:'addAction',
+												params: {carte_id: id[pioche],
+                                          id_manche: manche},
+									},
+										  // data : 'action=addAction&carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
+										  // dataType: 'text',
+										   success : function(){
+											  //  alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(){
+										   // alert( "echec");
+										   },
+										   complete : function(){
+										   //alert( "complet");
+										   }
+										   });*/
+			
+			/*
+										$.ajax( {
+										   url : 'carteController.php',
+										   type : 'POST',
+										   data : 	'nom_carte=' + nom[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
+										   success : function(code_html, statut){
+											   alert("youpi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(resultat, statut, erreur){
+										   },
+										   complete : function(resultat, statut){
+										   alert( "reussi");
+										   }
+
+										});*/
+
+			
+		</script>
+		
+		
+		
+		
+		{% endblock %}
+  </body>
+</html>
