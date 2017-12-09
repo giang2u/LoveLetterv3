@@ -132,8 +132,8 @@
 						
 						var pos = 0;
 						
-						if (nom_carte[pioche -1] == "Countess" ) countessRule(0);
-						else if ( nom_carte[pioche -1] == "King" || nom_carte[pioche -1] == "Prince") countessRule(1);
+						if (nom_carte[pioche -1] == "Countess" ) countessRule(1);
+						else if ( nom_carte[pioche -1] == "King" || nom_carte[pioche -1] == "Prince") countessRule(0);
 						
 						
 						
@@ -311,8 +311,6 @@
 			
 			
 			function countessRule(pos) {
-			/*
-			alert("COUNTESS RULE " + pos);
 				
 				var verif = false;
 				var po = 0;
@@ -323,19 +321,22 @@
 						
 					
 							// king or prince
-							if ( pos == 0) verif = (mainj1[0] == 6 ||  mainj1[0] == 5);
+							if ( pos == 1 ) verif = (mainj1[0] == 6 ||  mainj1[0] == 5);
 							
 							// if fisrt card is countess
-							else if (pos == 1) verif = ( mainj1[0] == 7 );
+							else if (pos == 0) verif = ( mainj1[0] == 7 );
 							
 							if ( verif	) {
 								mainj1.splice(1, 1);
 								etat_de_la_carte[pioche] = "DEFAUSSEE";
 								
 								
-								var el = document.getElementById(mainj1_idpioche[);
 								
-								el.parentNode.removeChild(0);
+								var el = document.getElementById(mainj1_idpioche[pos]);
+								
+								alert("test PARENT " + el );
+								
+								el.parentNode.removeChild(el);
 								
 								
 								alert("test PARENT " + document.getElementById('joueur1'));
@@ -362,7 +363,7 @@
 							}
 						}
 					}
-				*/
+				
 			}
 			
 			
