@@ -17,9 +17,9 @@
 
 
 				<div id="horsjeu">
-				<img src="{{ asset(first) }}" align="center" height = 100  width = 75 alt="first" style="margin-top: 20px ; margin-bottom: 20px;"/>
-				<img src="{{ asset(second) }}" align="center" height = 100  width = 75 alt="second" style="margin-top: 20px; margin-bottom: 20px;"/>
-				<img src="{{ asset(trois) }}" align="center" height = 100  width = 75 alt="trois" style="margin-top: 20px; margin-bottom: 20px;"/>
+				<img src="{{ asset(first) }}" align="center" height = 100  width = 75 style="margin-top: 20px ; margin-bottom: 20px;"/>
+				<img src="{{ asset(second) }}" align="center" height = 100  width = 75  style="margin-top: 20px; margin-bottom: 20px;"/>
+				<img src="{{ asset(trois) }}" align="center" height = 100  width = 75  style="margin-top: 20px; margin-bottom: 20px;"/>
 
 				<img src="{{ asset(verso) }}" align="center" height = 100  width = 75 alt="verso" style="margin-top: 20px; margin-bottom: 20px; float:right;" onclick="tirerCarte()"/>
 
@@ -46,7 +46,6 @@
 					  </select></p>
 					</section>
 					<menu>
-					  <button id="cancel" type="reset">Annuler</button>
 					  <button id="confirm" type="submit">Confirmer</button>
 					</menu>
 				  </form>
@@ -54,6 +53,34 @@
 				
 				<menu>
 				  <button id="updateDetails" hidden>Update details</button>
+				</menu>
+				
+				
+				<dialog id="gaurdguard">
+				  <form method="dialog">
+					<section>
+					  <p><label for="favAnimal">Joueur à défausser :</label>
+					  <select id="joueur" name="joueur">
+					  </select></p>
+					  <select id="carteguard" name="carteguard">
+					  <option>Priest</option>
+					  <option>Baron</option>
+					  <option>Handmaid</option>
+					  <option>Prince</option>
+					  <option>King</option>
+					  <option>Countess</option>
+					  <option>Princess</option>
+					  </select>
+					</section>
+					<menu>
+					  
+					  <button id="ok" type="submit">Confirmer</button>
+					</menu>
+				  </form>
+				</dialog>
+				
+				<menu>
+				  <button id="updateGuard" hidden>Update details</button>
 				</menu>
 		
 		{% set pioche = 3 %}
@@ -209,13 +236,10 @@
 							j1_handmaid = 0;
 						}
 					}
-					
-					
-					
 					i++;
 				}
 				else{
-				
+					alert( mainj1 + " J1     " + mainj1_idpioche + "      J2 " +  mainj2 + "  IDPIOCHE J2 " + mainj2_idpioche );
 					alert('jouer une carte avant de passer ');
 				}
 				
@@ -226,7 +250,9 @@
 			}
 
 			function drag(ev, joueur, pioche) {
-				if (!partie_fini)  ev.dataTransfer.setData("text", ev.target.id);
+			
+				if (!partie_fini && piocher)  ev.dataTransfer.setData("text", ev.target.id);
+				else alert( " PIOCHE AVANT DE JOUER ");
 				
 			}
 
@@ -246,8 +272,10 @@
 					if (mainj1_idpioche[0] == data) { 
 					mainj1.splice(0, 1);
 					mainj1_idpioche.splice(0, 1);
+					
 					}
 					if (mainj1_idpioche[1] == data) {
+					
 					mainj1.splice(1, 1); 
 					mainj1_idpioche.splice(1, 1);
 					}
@@ -281,7 +309,7 @@
 					
 					switch (nom_carte[data]) {
 						case "Guard":
-							guard();
+							guardRule();
 							break;
 						case "priest":
 							guard();
@@ -303,7 +331,7 @@
 					}
 					
 					
-					if (pioche == 15) {
+					if (pioche == 16) {
 						finDuJeu();
 					}
 				} else {
@@ -530,7 +558,7 @@
 					
 					var player2 = document.getElementById('joueur2');
 					var player1 = document.getElementById('joueur1');
-					//var test = player1.innerHTML;
+					var test = player1.innerHTML;
 					
 
 			
@@ -569,43 +597,113 @@
 			}
 			
 			
+			function guardRule() {
+			
+			/*$("#updateDetails").click(function(e){
+						e.preventDefault();
+						$("#updateDetails").trigger('click');
+					});*/
+					
+					document.getElementById('updateGuard').click();
+			}
 			
 			
 			
 			
 			(function () {
 		  var updateButton = document.getElementById('updateDetails');
-		  var cancelButton = document.getElementById('cancel');
+		//  var cancelButton = document.getElementById('cancel');
 		  var favDialog = document.getElementById('favDialog');
+		  var gg = document.getElementById('gaurdguard');
 		  var confirm = document.getElementById('confirm');
 		  var carte = document.getElementById('Carte');
 		  
-
+		  var updateG = document.getElementById('updateGuard');
+		//  var annule = document.getElementById('annule');
+		  var ok = document.getElementById('ok');
+		  var joueur = document.getElementById('joueur');
+		  var cg = document.getElementById('carteguard');
+	
 				carte.innerHTML +=  '<option> 1 </option>';
 				carte.innerHTML +=  '<option> 2 </option>';
+				
+				
+				if ( i%2== 1) 	joueur.innerHTML +=  '<option> 2 </option>';
+				if ( i%2== 2) joueur.innerHTML +=  '<option> 1 </option>';
+				
+				
 
 		  // Update button opens a modal dialog
 		  updateButton.addEventListener('click', function() {
 			favDialog.showModal();
 		  });
+		  
+		 
 
 		  // Form cancel button closes the dialog box
-		  cancelButton.addEventListener('click', function() {
+		  /*cancelButton.addEventListener('click', function() {
 			favDialog.close();
-		  });
+		  });*/
+		  
+		 
 		  
 		  confirm.addEventListener('click', function() {
 			var strUser = carte.options[carte.selectedIndex].value;
 			defausse(strUser);
 		  });
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		   updateG.addEventListener('click', function() {
+			gg.showModal();
+		  });
+		  
+		  
+		   /*annule.addEventListener('click', function() {
+			gg.close();
+		  });*/
+		  
+		  
+		   ok.addEventListener('click', function() {
+			var strUser = joueur.options[joueur.selectedIndex].value;
+			var carteDevine = cg.options[cg.selectedIndex].value;
+			devine(strUser, carteDevine);
+		  });
+		  
 		}) ();
+		
+		function devine(user, carte) {
+			if ( user == 1  && nom_carte[ mainj1_idpioche[0] ] == carte && && j1_handmaid == 0) {
+			
+				gagnant = 2;
+				partie_fini = true;
+				finDuJeu();
+			
+			}
+			if ( user == 2 && nom_carte[ mainj2_idpioche[0] ] == carte && j2_handmaid == 0) {
+			
+				gagnant = 1;
+				partie_fini = true;
+				finDuJeu();
+			
+			}
+		
+		}
 		
 		
 		
 		function defausse(j) {
-			if (j == 1) {
+			if (j == 1 && j1_handmaid == 0) {
+			
 				if (mainj1 > 0) {
 					if (mainj1[0] !== 8 ) {
+					
+						document.getElementById('horsjeu').innerHTML += '<img src="'+n[mainj1_idpioche[0]]+'"  height = 100  width = 75 style="margin-top: 20px ; margin-bottom: 20px;" />';
+						
 						document.getElementById(mainj1_idpioche[0]).remove();
 						mainj1.splice(0, 1); 
 						mainj1_idpioche.splice(0, 1); 
@@ -613,8 +711,8 @@
 						
 						document.getElementById('joueur1').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="75" height="100" " />';
 								
-						mainj2.push(id[pioche]);
-						mainj2_idpioche.push(pioche);
+						mainj1.push(id[pioche]);
+						mainj1_idpioche.push(pioche);
 								
 						pioche++;
 					} else {
@@ -625,9 +723,12 @@
 				}
 			} 
 			
-			if ( j == 2 ) {
+			if ( j == 2 && j2_handmaid == 0) {
 				if (mainj2 > 0) {
 					if (mainj2[0] !== 8 ) {
+					
+						document.getElementById('horsjeu').innerHTML += '<img src="'+n[mainj2_idpioche[0]]+'"  height = 100  width = 75 style="margin-top: 20px ; margin-bottom: 20px;" />';
+						
 						document.getElementById(mainj2_idpioche[0]).remove();
 						mainj2.splice(0, 1); 
 						mainj2_idpioche.splice(0, 1);
@@ -648,21 +749,7 @@
 		}
 			
 					
-				/*	(function () {
-		  var updateButton = document.getElementById('updateDetails');
-		  var cancelButton = document.getElementById('cancel');
-		  var favDialog = document.getElementById('favDialog');
-
-		  // Update button opens a modal dialog
-		  updateButton.addEventListener('click', function() {
-			favDialog.showModal();
-		  });
-
-		  // Form cancel button closes the dialog box
-		  cancelButton.addEventListener('click', function() {
-			favDialog.close();
-		  });
-		}) ();*/
+				
 
 			
 			
