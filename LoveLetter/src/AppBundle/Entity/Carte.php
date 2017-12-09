@@ -44,27 +44,35 @@ class Carte
 		$this->retournee = true;
 		switch ($this->carte_nom) {
 			case "Princess":
+				$this->carte_nom = "Princess";
 				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Princess.png";
 				break;
 			case "Countess":
+				$this->carte_nom = "Countess";
 				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Countess.png";
 				break;
 			case "King":
+				$this->carte_nom = "King";
 				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/King.png";
 				break;
 			case "Prince":
+				$this->carte_nom = "Prince";
 				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Prince.png";
 				break;
 			case "Handmaid":
+				$this->carte_nom = "Handmaid";
 				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Handmaid.png";
 				break;
 			case "Baron":
+				$this->carte_nom = "Baron";
 				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Baron.png";
 				break;
 			case "Priest":
+				$this->carte_nom = "Priest";
 				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Priest.png";
 				break;
 			case "Guard":
+				$this->carte_nom = "Guard";
 				$this->carte_url = "/LoveLetterv3/LoveLetter/web/img/Guard.png";
 				break;
 			default:

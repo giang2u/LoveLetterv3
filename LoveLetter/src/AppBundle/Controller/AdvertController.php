@@ -149,7 +149,7 @@ class AdvertController extends Controller
 		$manche2 = $em->getRepository('AppBundle:Manche')->find($manche->getId() );
 		
 		$deck = new Deck();
-		$deck->melanger();
+		//$deck->melanger();
 		
 		
 		foreach($deck->getArrayDeck() as $c) {

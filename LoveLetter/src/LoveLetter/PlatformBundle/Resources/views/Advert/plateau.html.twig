@@ -50,15 +50,19 @@
 				
 				i = 1;
 				pioche = 3;
+				
 				piocher = false;
+				
+				partie_fini = false;
 
- 				joeur = false;
+ 				jouer = false;
 				poser = 0;
 					
 
 				var mainj1 = [];
+				var mainj1_idpioche = [];
 				var mainj2 = [];
-
+				var mainj2_idpioche = [];
 				
 				var n = [];
 				 {% for item1 in deck %}
@@ -69,76 +73,67 @@
 				 {% for item1 in id %}
 					id.push( "{{ item1 }}" );
 				{% endfor %}
+				
+				
+				var etat_de_la_carte = [];
+				var nom_carte = [];
+				{% for item1 in nom %}
+					etat_de_la_carte.push(  "PAS JOUEE" );
+					nom_carte.push( "{{ item1 }}" );
+				{% endfor %}
+				
+				
+				
 
 
 				document.getElementById('joueur2').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
 				mainj2.push(id[pioche]);
+				mainj2_idpioche.push(pioche);
 				pioche++;
 				document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
 				mainj1.push(id[pioche]);
+				mainj1_idpioche.push(pioche);
 				pioche++;
 		
 				function tirerCarte(){
 				
-				if (pioche <= 15)  {
+				if (pioche <= 15 && !partie_fini)  {
 				
 						
 						if (i%2 == 0 && !piocher) {	
-
-						document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
 						
-						mainj2.push(id[pioche]);
-						piocher = true;
-						pioche++;
+							manche = {{ id_manche }};
 							
-										manche = {{ id_manche }};
-										$.ajax( {
-										   url : 'carteController.php',
-										   type : 'POST',
-										   data : 	'nom_carte=' + nom[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
-										   success : function(code_html, statut){
-											   alert("youpi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
-										   },
-										   error : function(resultat, statut, erreur){
-										   },
-										   complete : function(resultat, statut){
-										   alert( "reussi");
-										   }
-
-										});
+							document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+							
+							mainj2.push(id[pioche]);
+							mainj2_idpioche.push(pioche);
+							
+							piocher = true;
+							pioche++;
+										
 						}
-						
 						if (i%2 == 1 && !piocher) {
 
-							piocher = true;
+							
 							manche = {{ id_manche }};
 										
-										$.ajax( {
-										   url : '/LoveLetterv3/LoveLetter/web/CarteController.php',
-										   type : 'POST',
-										    data: {
-												fonction:'addAction',
-												params: {carte_id: id[pioche],
-                                          id_manche: manche},
-									},
-										  // data : 'action=addAction&carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
-										  // dataType: 'text',
-										   success : function(){
-											  //  alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
-										   },
-										   error : function(){
-										   // alert( "echec");
-										   },
-										   complete : function(){
-										   //alert( "complet");
-										   }
-										   });
 							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event,1,pioche)" width="150" height="200" " />';
 							
 							mainj1.push(id[pioche]);
-						piocher = true;
-						pioche++;
+							mainj1_idpioche.push(pioche);
+						
+							piocher = true;
+							pioche++;
 						}
+						
+						var pos = 0;
+						
+						if (nom_carte[pioche -1] == "Countess" ) countessRule(0);
+						else if ( nom_carte[pioche -1] == "King" || nom_carte[pioche -1] == "Prince") countessRule(1);
+						
+						
+						
 					} else {
 						finDuJeu();
 					}
@@ -150,37 +145,40 @@
 					i++;
 					piocher = false;
 					poser = 0;
+					jouer = false;
 				}
 				else{
-					alert('joeur une carte avant de passer ');
+					alert('joué une carte avant de passer ');
 				}
 				
 			};
 
 			function allowDrop(ev) {
-			    ev.preventDefault();
+			    if (!partie_fini) ev.preventDefault();
 			}
 
 			function drag(ev, joueur, pioche) {
-				
-			    ev.dataTransfer.setData("text", ev.target.id);
+				if (!partie_fini)  ev.dataTransfer.setData("text", ev.target.id);
 				
 			}
 
 			function drop(ev,id, pioche) {
+				if (!partie_fini) {
 				var index;
-				verif = false;
-				joueur = 1;
+				var verif = false;
 			    
 			    if(id == 'terrainP1' && poser < 1){
 					index = mainj1.indexOf(id[pioche]);
 					mainj1.splice(index, 1);
+					
+					mainj1_idpioche.splice(index, 1);
 					verif = true;
-					joueur = 1;
 			    }
 			    if(id == 'terrainP2' && poser < 1){
 					index = mainj2.indexOf(id[pioche]);
 					mainj2.splice(index, 1);
+					
+					mainj2_idpioche.splice(index, 1);
 					verif = true;
 			    }
 				
@@ -189,6 +187,8 @@
 					var data = ev.dataTransfer.getData("text");
 					ev.target.appendChild(document.getElementById(data));
 					poser++;
+					jouer = true;
+					etat_de_la_carte[ id[pioche] ] = "JOUEE";
 					
 					if (pioche == 15) {
 						finDuJeu();
@@ -197,6 +197,7 @@
 					ev.preventDefault();
 				}
 				
+				}
 				
 			}
 			
@@ -220,6 +221,7 @@
 					alert( " BRAVO JOUEUR 2 FIER GUERRIER BZ LA");
 					break;
 				}
+				partie = true;
 			
 			}
 			
@@ -242,31 +244,142 @@
 			
 			
 			
+			
+			/* -------------------------------------  REGLE DES CARTES  ----------------------------------------------------------- */ 
+			
+			
+					/*				 Princess (1), si vous défaussez cette carte, vous
+						êtes éliminé de la manche.
+						7 - Countess (1), Si vous avez cette carte en main en
+						même temps que le King ou le Prince, alors vous
+						devez défausser la carte de la Countess
+						6 - King(1), échangez votre main avec un autre
+						joueur de votre choix.
+						5 - Prince (2), choisissez un joueur (y compris
+						vous), celui-ci défausse la carte qu'il a en main pour
+						en piocher une nouvelle.
+						4 - Handmaid (2), Jusqu'au prochain tour, vous êtes
+						protégé des effets des cartes des autres joueurs.
+						3 - Baron (2) - Comparez votre carte avec celle d'un
+						autre joueur, celui qui a la carte avec la plus faible
+						valeur est éliminé de la manche.
+						2 - Priest (2) - Regardez la main d'un autre joueur.
+						1 - Guard (5) - Choisissez un joueur et essayez de
+						deviner la carte qu'il a en main (excepté le Guard),
+						si vous tombez juste, le joueur est éliminé de la
+						manche.*/
+			
+			function verif_carte_jouer(id_carte) {
+				switch (id_carte) {
+				case 8:
+					
+				}
+			
+			}
+			
+			
+			function countessRule(pos) {
+			/*
+			alert("COUNTESS RULE " + pos);
+				
+				var verif = false;
+				var po = 0;
+				
+					if ( i%2 == 1 ) {
+						if ( mainj1.length == 2 ) {
+						
+						
+					
+							// king or prince
+							if ( pos == 0) verif = (mainj1[0] == 6 ||  mainj1[0] == 5);
+							
+							// if fisrt card is countess
+							else if (pos == 1) verif = ( mainj1[0] == 7 );
+							
+							if ( verif	) {
+								mainj1.splice(1, 1);
+								etat_de_la_carte[pioche] = "DEFAUSSEE";
+								
+								
+								var el = document.getElementById(mainj1_idpioche[);
+								
+								el.parentNode.removeChild(0);
+								
+								
+								alert("test PARENT " + document.getElementById('joueur1'));
+									
+							}
+						}
+					
+					} else {
+							
+						if ( mainj2.length == 2 ) {
+						
+						
+							// king or prince
+							if ( pos == 0) verif = ( mainj2[0] == 6 ||  mainj2[0] == 5 );
+							
+							// if fisrt card is countess
+							else if (pos == 1) verif = ( mainj2[0] == 7 );
+							
+							if ( verif ) {
+								mainj2.splice(1, 1);
+								etat_de_la_carte[pioche] = "DEFAUSSEE";
+								var el = document.getElementById('joueur2');
+								el.parentNode.removeChild(pioche);
+							}
+						}
+					}
+				*/
+			}
+			
+			
+			
 
 			
+			
+			/*	$.ajax( {
+										   url : '/LoveLetterv3/LoveLetter/web/CarteController.php',
+										   type : 'POST',
+										    data: {
+												fonction:'addAction',
+												params: {carte_id: id[pioche],
+                                          id_manche: manche},
+									},
+										  // data : 'action=addAction&carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
+										  // dataType: 'text',
+										   success : function(){
+											  //  alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(){
+										   // alert( "echec");
+										   },
+										   complete : function(){
+										   //alert( "complet");
+										   }
+										   });*/
 			
 			/*
 										$.ajax( {
-										   url : 'CarteController.php',
+										   url : 'carteController.php',
 										   type : 'POST',
-										   
-										   data : 'carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
-										   dataType: 'text',
-										   success : function(){
-											    alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   data : 	'nom_carte=' + nom[pioche] + '&idjoueur='+ 1 + '&id_manche=' + manche,
+										   success : function(code_html, statut){
+											   alert("youpi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
 										   },
-										   error : function(){
-										    alert( "echec");
+										   error : function(resultat, statut, erreur){
 										   },
-										   complete : function(){
-										   alert( "complet");
+										   complete : function(resultat, statut){
+										   alert( "reussi");
 										   }
-
 
 										});*/
 
 			
 		</script>
+		
+		
+		
 		
 		{% endblock %}
   </body>
