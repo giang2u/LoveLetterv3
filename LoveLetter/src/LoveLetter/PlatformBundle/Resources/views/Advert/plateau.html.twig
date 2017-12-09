@@ -7,35 +7,38 @@
   </head>
   <body>
     <h1 align="middle" >Plateau de jeu</h1>
-		
-		<div id="joueur2" align="middle">
-			PLAYER 2
-			<br>
+		<div id="manche" >
+			<div id="joueur2" align="middle">
+				PLAYER 2
+				<br>
+			</div>
+			<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px" >
+
+				<div id="terrainP2" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
+
+
+				<div id="horsjeu">
+				<img src="{{ asset(first) }}" align="center" height = 200  width = 150 alt="first" style="margin-top: 200px ; margin-bottom: 200px;"/>
+				<img src="{{ asset(second) }}" align="center" height = 200  width = 150 alt="second" style="margin-top: 200px; margin-bottom: 200px;"/>
+				<img src="{{ asset(trois) }}" align="center" height = 200  width = 150 alt="trois" style="margin-top: 200px; margin-bottom: 200px;"/>
+
+				<img src="{{ asset(verso) }}" align="center" height = 200  width = 150 alt="verso" style="margin-top: 200px; margin-bottom: 200px; float:right;" onclick="tirerCarte()"/>
+
+				</div>
+
+
+				<div id="terrainP1" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
+
+			</div>
+
+			<div id = "joueur1" align="middle"> 
+				PLAYER 1
+				<br>
+			</div>
+			
+
+			<input type="image" value="Endtour" style="margin-top: 300px; margin-bottom: 150px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour('joueur1', 'joueur2', 'terrainP1', 'terrainP2')" />
 		</div>
-		<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px" >
-
-			<div id="terrainP2" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
-
-
-			<img src="{{ asset(first) }}" align="center" height = 200  width = 150 alt="first" style="margin-top: 200px ; margin-bottom: 200px;"/>
-			<img src="{{ asset(second) }}" align="center" height = 200  width = 150 alt="second" style="margin-top: 200px; margin-bottom: 200px;"/>
-			<img src="{{ asset(trois) }}" align="center" height = 200  width = 150 alt="trois" style="margin-top: 200px; margin-bottom: 200px;"/>
-
-
-			<img src="{{ asset(verso) }}" align="center" height = 200  width = 150 alt="verso" style="margin-top: 200px; margin-bottom: 200px; float:right;" onclick="tirerCarte()"/>
-
-			<input type="image" value="Endtour" style="margin-top: 300px; margin-bottom: 150px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour()" />
-
-
-			<div id="terrainP1" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
-
-		</div>
-
-		<div id = "joueur1" align="middle"> 
-			PLAYER 1
-			<br>
-		</div>
-		
 		
 		{% set pioche = 3 %}
 		
@@ -140,12 +143,41 @@
 				};
 			
 			
-			function findutour(){
+
+			function findutour(j1,j2,t1,t2){
 				if(mainj1.length < 2 && mainj2.length < 2 ){
-					i++;
 					piocher = false;
 					poser = 0;
 					jouer = false;
+					if(i%2 == 1){
+						var player2 = document.getElementById(j2);
+						var player1 = document.getElementById(j1);
+						document.getElementById('manche').replaceChild(player2,document.getElementById(j1));
+						document.getElementById('manche').insertBefore(player1, document.getElementById('plateau'));
+
+						var terrain1 = document.getElementById(t1);
+						var terrain2 = document.getElementById(t2);
+
+						document.getElementById('plateau').replaceChild(terrain2,document.getElementById(t1));
+						document.getElementById('plateau').insertBefore(terrain1, document.getElementById('horsjeu'));
+					}
+
+
+					if(i%2 == 0){
+						var player2 = document.getElementById(j2);
+						var player1 = document.getElementById(j1);
+						document.getElementById('manche').replaceChild(player1,document.getElementById(j2));
+						document.getElementById('manche').insertBefore(player2, document.getElementById('plateau'));
+
+
+						var terrain1 = document.getElementById(t1);
+						var terrain2 = document.getElementById(t2);
+
+						document.getElementById('plateau').replaceChild(terrain1,document.getElementById(t2));
+						document.getElementById('plateau').insertBefore(terrain2, document.getElementById('horsjeu'));
+					}
+					
+					i++;
 				}
 				else{
 					alert('joué une carte avant de passer ');
