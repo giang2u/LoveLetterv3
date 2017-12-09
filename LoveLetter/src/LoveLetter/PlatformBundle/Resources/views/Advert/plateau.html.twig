@@ -202,11 +202,13 @@
 			function drop(ev,id, pioche) {
 				var index;
 				verif = false;
+				joueur = 1;
 			    
 			    if(id == 'terrainP1' && poser < 1){
 					index = mainj1.indexOf(id[pioche]);
 					mainj1.splice(index, 1);
 					verif = true;
+					joueur = 1;
 			    }
 			    if(id == 'terrainP2' && poser < 1){
 					index = mainj2.indexOf(id[pioche]);
@@ -219,9 +221,33 @@
 					var data = ev.dataTransfer.getData("text");
 					ev.target.appendChild(document.getElementById(data));
 					poser++;
+					
+					/*if (pioche == 15) {
+						finDuJeu();
+					}*/
+				} else {
+					ev.preventDefault();
 				}
 				
+				
 			}
+			
+			
+		/*	function finDuJeu() {
+				if (pioche == 15 && jouer) {
+					
+					
+					if (mainj1.length == 0) {
+					
+					
+					}
+					
+				}				
+			
+			}*/
+			
+			
+			
 
 			
 			
