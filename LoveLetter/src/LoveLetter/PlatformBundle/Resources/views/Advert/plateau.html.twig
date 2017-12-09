@@ -14,7 +14,7 @@
 		</div>
 		<div id="plateau" style="background-image: url({{ asset(plateau) }}); float:center ; background-size: cover ; margin-right:100px; margin-left:100px" >
 
-			<div id="terrainP2" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id)" ondragover="allowDrop(event, id)" ></div>
+			<div id="terrainP2" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;" "  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event, id)" ></div>
 
 
 			<img src="{{ asset(first) }}" align="center" height = 200  width = 150 alt="first" style="margin-top: 200px ; margin-bottom: 200px;"/>
@@ -27,7 +27,7 @@
 			<input type="image" value="Endtour" style="margin-top: 300px; margin-bottom: 150px ; float:right;" src = "/LoveLetterv3/LoveLetter/web/img/end.png"  onclick="findutour()" />
 
 
-			<div id="terrainP1" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id)" ondragover="allowDrop(event)" ></div>
+			<div id="terrainP1" style=" width: cover; height: 200px; padding: 10px; border: 1px solid #aaaaaa;"  ondrop="drop(event,id,pioche)" ondragover="allowDrop(event)" ></div>
 
 		</div>
 
@@ -52,43 +52,43 @@
 				pioche = 3;
 				piocher = false;
 
-				mainP1 = 1;
-				mainP2 = 1;
  				joeur = false;
 				poser = 0;
 					
 
+				var mainj1 = [];
+				var mainj2 = [];
 
 				
 				var n = [];
 				 {% for item1 in deck %}
 					n.push( "{{ item1 }}" );
 				{% endfor %}
+				
+				var id = [];
+				 {% for item1 in id %}
+					id.push( "{{ item1 }}" );
+				{% endfor %}
 
 
 				document.getElementById('joueur2').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+				mainj2.push(id[pioche]);
 				pioche++;
 				document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
+				mainj1.push(id[pioche]);
 				pioche++;
 		
 				function tirerCarte(){
 				
 				if (pioche <= 15)  {
 				
-				//var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
 				
-				//alert( n[pioche] );
-				
-					//var po = "/LoveLetterv3/LoveLetter/web/"+n[pioche];
-					
-					//alert( n[pioche] );
-					
-					//alert ( po );
 						
 						if (i%2 == 0 && !piocher) {	
 
 						document.getElementById('joueur2').innerHTML += '<img id ="'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
-						mainP2 = mainP2 + 1 ;
+						
+						mainj2.push(id[pioche]);
 						piocher = true;
 						pioche++;
 							
@@ -113,7 +113,86 @@
 
 							piocher = true;
 							manche = {{ id_manche }};
-							/*
+										
+										$.ajax( {
+										   url : '/LoveLetterv3/LoveLetter/web/CarteController.php',
+										   type : 'POST',
+										    data: {
+												fonction:'addAction',
+												params: {carte_id: id[pioche],
+                                          id_manche: manche},
+									},
+										  // data : 'action=addAction&carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
+										  // dataType: 'text',
+										   success : function(){
+											  //  alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
+										   },
+										   error : function(){
+										   // alert( "echec");
+										   },
+										   complete : function(){
+										   //alert( "complet");
+										   }
+										   });
+							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event,1,pioche)" width="150" height="200" " />';
+							
+							mainj1.push(id[pioche]);
+						piocher = true;
+						pioche++;
+						}
+					}
+				};
+			
+			
+			function findutour(){
+				if(mainj1.length < 2 && mainj2.length < 2 ){
+					i++;
+					piocher = false;
+					poser = 0;
+				}
+				else{
+					alert('joeur une carte avant de passer ');
+				}
+				
+			};
+
+			function allowDrop(ev) {
+			    ev.preventDefault();
+			}
+
+			function drag(ev, joueur, pioche) {
+				
+			    ev.dataTransfer.setData("text", ev.target.id);
+				
+			}
+
+			function drop(ev,id, pioche) {
+				var index;
+				verif = false;
+			    
+			    if(id == 'terrainP1' && poser < 1){
+					index = mainj1.indexOf(id[pioche]);
+					mainj1.splice(index, 1);
+					verif = true;
+			    }
+			    if(id == 'terrainP2' && poser < 1){
+					index = mainj2.indexOf(id[pioche]);
+					mainj2.splice(index, 1);
+					verif = true;
+			    }
+				
+				if ( verif == true) {
+					ev.preventDefault();
+					var data = ev.dataTransfer.getData("text");
+					ev.target.appendChild(document.getElementById(data));
+					poser++;
+				}
+				
+			}
+
+			
+			
+			/*
 										$.ajax( {
 										   url : 'CarteController.php',
 										   type : 'POST',
@@ -132,69 +211,6 @@
 
 
 										});*/
-										
-										
-										$.ajax( {
-										   url : '/LoveLetterv3/LoveLetter/web/CarteController.php',
-										   type : 'POST',
-										    data: {
-												fonction:'addAction',
-												params: {carte_id: id[pioche],
-                                          id_manche: manche},
-									},
-										  // data : 'action=addAction&carte_id=' + id[pioche] + '&id_joueur='+ 1 + '&id_manche=' + manche,
-										  // dataType: 'text',
-										   success : function(){
-											    alert( "reussi"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
-										   },
-										   error : function(){
-										    alert( "echec");
-										   },
-										   complete : function(){
-										   alert( "complet");
-										   }
-							document.getElementById('joueur1').innerHTML += '<img id = "'+pioche+'" src="'+n[pioche]+'" draggable="true" ondragstart="drag(event)" width="150" height="200" " />';
-							mainP1 = mainP1 + 1 ;
-
-						piocher = true;
-						pioche++;
-						}
-					}
-				};
-			
-			
-			function findutour(){
-				if(mainP1 < 2 && mainP2 < 2 ){
-					i++;
-					piocher = false;
-				}
-				else{
-					alert('joeur une carte avant de passer ');
-				}
-				
-			};
-
-			function allowDrop(ev) {
-			    ev.preventDefault();
-			}
-
-			function drag(ev,i) {
-			    ev.dataTransfer.setData("text", ev.target.id);
-			}
-
-			function drop(ev,id) {
-			    ev.preventDefault();
-			    var data = ev.dataTransfer.getData("text");
-			    ev.target.appendChild(document.getElementById(data));
-			    if(id == 'terrainP1' && poser < 1){
-			    	mainP1--;
-			    }
-			    if(id == 'terrainP2' && poser < 1){
-			    	mainP2--;
-			    	jouer == false;
-			    }
-			}
-
 
 			
 		</script>
